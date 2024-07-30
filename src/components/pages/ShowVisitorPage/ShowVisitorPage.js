@@ -67,8 +67,8 @@ import * as CheckoutActions from "../../../actions/checkout.action";
 // import { createTheme } from "@mui/material/styles";
 
 const BackgroundPaper = styled(Paper)(({ theme }) => ({
-  backgroundImage:
-    "url(https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)", // เปลี่ยน URL เป็น URL ของรูปภาพที่คุณต้องการใช้
+  // backgroundImage:
+  //   "url(https://plus.unsplash.com/premium_photo-1676637000058-96549206fe71?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)", // เปลี่ยน URL เป็น URL ของรูปภาพที่คุณต้องการใช้
   backgroundSize: "cover",
   backgroundRepeat: "no-repeat",
   backgroundPosition: "center",
@@ -79,6 +79,7 @@ const BackgroundPaper = styled(Paper)(({ theme }) => ({
   justifyContent: "center",
   alignItems: "center",
   color: "white",
+  backgroundColor: "#efe5d1",
 }));
 
 const theme = createTheme({
@@ -164,14 +165,14 @@ const Overlay = styled("div")({
   left: 0,
   right: 0,
   bottom: 0,
-  backgroundColor: "rgba(0, 0, 0, 0.5)", // ตั้งค่าสีดำที่มีความโปร่งแสง 50%
+  backgroundColor: "rgba(0, 0, 0, 0)", // ตั้งค่าสีดำที่มีความโปร่งแสง 50%
   zIndex: 0,
 });
 
 const ContentWrapper = styled("div")({
   position: "relative",
   zIndex: 1, // ทำให้เนื้อหาภายในอยู่เหนือ overlay
-  color: "white", // ตั้งค่าสีข้อความเป็นสีขาว
+  color: "#cdb590", // ตั้งค่าสีข้อความเป็นสีขาว
   padding: 20, // เพิ่ม padding เพื่อให้เนื้อหาไม่ติดขอบ
   display: "flex",
   flexDirection: "column",
@@ -188,12 +189,12 @@ const useStyles = makeStyles((theme) => ({
   },
   imagecontainer: {
     zIndex: 1,
-    border: "5px solid white", // กรอบสีขาว
+    border: "5px solid black", // กรอบสีขาว
     borderRadius: "10px", // ทำให้มุมของกรอบเป็นมุมโค้งมน
   },
   textField: {
     "& .MuiInputBase-input.Mui-disabled": {
-      WebkitTextFillColor: "white", // ตั้งค่าสีข้อความเป็นสีขาว
+      WebkitTextFillColor: "black", // ตั้งค่าสีข้อความเป็นสีขาว
       textAlign: "center", // ทำให้ข้อความอยู่ตรงกลางในแนวนอน
       display: "flex",
       alignItems: "center",
@@ -201,18 +202,18 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "1.0rem", // ขยายขนาดข้อความ
     },
     "& .MuiInputBase-input": {
-      color: "white", // ตั้งค่าสีข้อความใน TextField เป็นสีขาว
+      color: "black", // ตั้งค่าสีข้อความใน TextField เป็นสีขาว
       textAlign: "center",
       justifyContent: "center",
     },
     "& .MuiInputLabel-root": {
-      color: "white", // ตั้งค่าสี label ของ TextField เป็นสีขาว
+      color: "black", // ตั้งค่าสี label ของ TextField เป็นสีขาว
     },
     "& .MuiOutlinedInput-notchedOutline": {
-      borderColor: "white", // ตั้งค่าสี border ของ TextField เป็นสีขาว
+      borderColor: "black", // ตั้งค่าสี border ของ TextField เป็นสีขาว
     },
     "& .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline": {
-      borderColor: "transparent", // ตั้งค่าสี border เป็นสีขาว
+      borderColor: "black", // ตั้งค่าสี border เป็นสีขาว
     },
   },
 
@@ -317,6 +318,7 @@ const FilePage = (props) => {
     vMeettime: "",
     vEmail: "",
     vROOMNO: "",
+    vRemark: "-",
   };
 
   const initialsign = {
@@ -464,7 +466,13 @@ const FilePage = (props) => {
         vReason: visitordetail[0].H_REASON,
         vTel: visitordetail[0].H_TEL,
         vImg: visitordetail[0].IMAGE,
-        vROOMNO: visitordetail[0].H_ROOMNO,
+        vROOMNO:
+          visitordetail[0].H_ROOMNO == "-"
+            ? ""
+            : visitordetail[0].H_ROOMNO == "undefined"
+            ? ""
+            : visitordetail[0].H_ROOMNO,
+        vRemark: visitordetail[0].H_REMARK1,
       });
     })();
 
@@ -563,7 +571,7 @@ const FilePage = (props) => {
                             <div className="imagecontainer">
                               <img
                                 style={{
-                                  border: "2px solid white",
+                                  border: "8px solid #cdb590",
                                   borderRadius: "10px",
                                 }}
                                 width={300}
@@ -808,8 +816,47 @@ const FilePage = (props) => {
                           }}
                         />
                       </Grid>
+                      <Grid item xs={12} spacing={1}>
+                        <TextField
+                          className={classes.textField}
+                          fullWidth
+                          multiline
+                          rows={4}
+                          size="small"
+                          variant="outlined"
+                          id="vRemark"
+                          label="REMARK"
+                          value={visitorheader.vRemark}
+                          // disabled
+                          onChange={(event) => {
+                            setvisitorheader({
+                              ...visitorheader,
+                              vRemark: event.target.value,
+                            });
+                          }}
+                        />
+                      </Grid>
                     </Grid>
                     <Grid container item xs={12} spacing={1}>
+                      <Grid item xs={6} spacing={3}>
+                        <Button
+                          fullWidth
+                          size="medium"
+                          type="submit"
+                          id="vSubmit"
+                          variant="contained"
+                          style={{
+                            color: "white",
+                            backgroundColor: "#ccc",
+                          }}
+                          onClick={(event) => {
+                            values.vSubmit = "REJECT";
+                            values.vStatus = "01";
+                          }}
+                        >
+                          REJECT
+                        </Button>
+                      </Grid>
                       <Grid item xs={6} spacing={3}>
                         <Button
                           fullWidth
@@ -827,25 +874,6 @@ const FilePage = (props) => {
                           }}
                         >
                           ACCEPT
-                        </Button>
-                      </Grid>
-                      <Grid item xs={6} spacing={3}>
-                        <Button
-                          fullWidth
-                          size="medium"
-                          type="submit"
-                          id="vSubmit"
-                          variant="contained"
-                          style={{
-                            color: "black",
-                            backgroundColor: "#ACC8E5",
-                          }}
-                          onClick={(event) => {
-                            values.vSubmit = "REJECT";
-                            values.vStatus = "01";
-                          }}
-                        >
-                          REJECT
                         </Button>
                       </Grid>
                     </Grid>
@@ -892,8 +920,10 @@ const FilePage = (props) => {
           (async function() {
             switch (values.vSubmit) {
               case "REJECT":
-                formData.append("vID", values.vID);
+                formData.append("vID", visitorheader.vID);
                 formData.append("vStatuscheck", "REJECT");
+                formData.append("vRemark", visitorheader.vRemark);
+
                 // alert(JSON.stringify(formData));
                 await dispatch(CheckoutActions.checkOut(formData));
                 alert("REJECT Completed");
@@ -907,10 +937,12 @@ const FilePage = (props) => {
                 break;
               case "ACCEPT":
                 // await dispatch(swrfileActions.fetchSWRFile());
-                formData.append("vID", values.vID);
+
+                formData.append("vID", visitorheader.vID);
                 formData.append("vStatuscheck", "APPROVE");
                 formData.append("vROOM", values.vROOMNO);
                 formData.append("vLocation", locationhead);
+                formData.append("vRemark", visitorheader.vRemark);
                 // alert(JSON.stringify(formData));
                 await dispatch(CheckoutActions.checkOut1(formData));
                 alert("APPROVE Completed");

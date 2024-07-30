@@ -14,6 +14,7 @@ import Slider from "react-slick";
 import CameraIcon from "@mui/icons-material/CameraAlt";
 import UploadIcon from "@mui/icons-material/UploadFile";
 import TakeIcon from "@mui/icons-material/RadioButtonChecked";
+import CameraswitchIcon from "@mui/icons-material/Cameraswitch";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -31,7 +32,11 @@ import {
   Button,
   Input,
   colors,
+  FormControlLabel,
+  Checkbox,
+  IconButton,
 } from "@material-ui/core";
+
 import {
   makeStyles,
   withStyles,
@@ -71,6 +76,8 @@ import { add, values } from "lodash";
 
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { grey } from "@mui/material/colors";
+
+import { Add, Remove } from "@material-ui/icons";
 
 // import { createTheme } from "@mui/material/styles";
 
@@ -224,14 +231,80 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const FilePage = (props) => {
+  const [isFoodChecked, setFoodIsChecked] = useState(false);
+  const [isATKChecked, setATKIsChecked] = useState(false);
+  const [isParkChecked, setParkIsChecked] = useState(false);
+  const [isETCChecked, setETCIsChecked] = useState(false);
+
+  const [Foodnumber, setFoodNumber] = useState(0);
+  const [ATKnumber, setATKNumber] = useState(0);
+  const [Parknumber, setParkNumber] = useState(0);
+  const [ETCnumber, ETCFoodNumber] = useState(0);
+
+  const handleFoodCheckboxChange = (event) => {
+    setFoodIsChecked(event.target.checked);
+  };
+
+  const handleFoodNumberChange = (event) => {
+    setFoodNumber(event.target.value);
+  };
+
+  const handleATKCheckboxChange = (event) => {
+    setATKIsChecked(event.target.checked);
+  };
+
+  const handleATKNumberChange = (event) => {
+    setATKNumber(event.target.value);
+  };
+
+  const handleParkCheckboxChange = (event) => {
+    setParkIsChecked(event.target.checked);
+  };
+
+  const handleParkNumberChange = (event) => {
+    setParkNumber(event.target.value);
+  };
+
+  const handleETCCheckboxChange = (event) => {
+    setETCIsChecked(event.target.checked);
+  };
+
+  const increaseFoodNumber = () => {
+    setFoodNumber((prevNumber) => prevNumber + 1);
+  };
+
+  const increaseATKNumber = () => {
+    setATKNumber((prevNumber) => prevNumber + 1);
+  };
+
+  const increaseParkNumber = () => {
+    setParkNumber((prevNumber) => prevNumber + 1);
+  };
+
+  const decreaseFoodNumber = () => {
+    setFoodNumber((prevNumber) => (prevNumber > 0 ? prevNumber - 1 : 0));
+  };
+
+  const decreaseATKNumber = () => {
+    setATKNumber((prevNumber) => (prevNumber > 0 ? prevNumber - 1 : 0));
+  };
+
+  const decreaseParkNumber = () => {
+    setParkNumber((prevNumber) => (prevNumber > 0 ? prevNumber - 1 : 0));
+  };
+
   const canvasRef = useRef(null);
   const [currentStream, setcurrentStream] = useState(null);
+  const [isFrontCamera, setIsFrontCamera] = useState(true);
 
   const [imageSrc, setImageSrc] = useState(null);
 
   const openCamera = async () => {
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      const constraints = {
+        video: { facingMode: isFrontCamera ? "user" : "environment" },
+      };
+      const stream = await navigator.mediaDevices.getUserMedia(constraints);
       videoRef.current.srcObject = stream;
       setcurrentStream(stream);
     } catch (err) {
@@ -258,17 +331,48 @@ const FilePage = (props) => {
       canvasRef.current.width,
       canvasRef.current.height
     );
+
+    // inputProps={{ accept: "image/png, image/gif, image/jpeg" }}
+    // const dataUrl = canvasRef.current.toDataURL("image/png");
     const dataUrl = canvasRef.current.toDataURL("image/png");
     // setImageSrc(dataUrl);
+    const blob = dataURLToBlob(dataUrl);
+
+    setBlobfile(blob);
     setFile(dataUrl);
     // setFile(dataUrl);
     handleStopCamera();
   };
 
+  const dataURLToBlob = (dataUrl) => {
+    const arr = dataUrl.split(",");
+    const mime = arr[0].match(/:(.*?);/)[1];
+    const bstr = atob(arr[1]);
+    let n = bstr.length;
+    const u8arr = new Uint8Array(n);
+
+    while (n--) {
+      u8arr[n] = bstr.charCodeAt(n);
+    }
+
+    return new Blob([u8arr], { type: mime });
+  };
+
   const handleFileChange = (event) => {
     const file = event.target.files[0];
+
+    const blob = new Blob([file], { type: file.type });
+
+    setBlobfile(blob);
+
     // setFile(file);
     setFile(URL.createObjectURL(file));
+  };
+
+  const switchCamera = () => {
+    closeCamera();
+    setIsFrontCamera(!isFrontCamera);
+    openCamera();
   };
 
   const initialFileDetail = {
@@ -377,6 +481,8 @@ const FilePage = (props) => {
 
   const [file, setFile] = useState(null);
 
+  const [blobfile, setBlobfile] = useState(null);
+
   const [id, setID] = useState(false);
   const [type, setType] = useState(false);
   const [swrname, setSwrname] = useState(false);
@@ -484,13 +590,18 @@ const FilePage = (props) => {
 
     setIsModalOpen1(false);
     setIsModalOpen2(true);
-
-    openCamera();
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      openCamera();
+    } else {
+      console.log("Camera API is not supported in this browser.");
+    }
   };
 
   const handleClose1 = () => setIsModalOpen1(false);
 
   const handleClose2 = () => setIsModalOpen2(false);
+
+  const [isChecked, setIsChecked] = useState(false);
 
   const [visitorheader, setvisitorheader] = useState(initialvisitorheader);
 
@@ -613,6 +724,10 @@ const FilePage = (props) => {
   const openModal = () => setIsOpen(true);
   const closeModal = () => setIsOpen(false);
 
+  const handleCheckboxChange = (event) => {
+    setIsChecked(event.target.checked);
+  };
+
   const closeModal1 = () => {
     setIsModalOpen1(false);
   };
@@ -678,7 +793,7 @@ const FilePage = (props) => {
                         outline: "none",
                       }}
                     >
-                      <Grid container spacing={2}>
+                      <Grid container>
                         <Grid item xs={12}>
                           <Box
                             sx={{
@@ -770,24 +885,75 @@ const FilePage = (props) => {
                               textAlign: "center",
                             }}
                           >
-                            <Typography
-                              id="modal-modal-description"
-                              sx={{ mt: 2 }}
+                            <div
+                              style={{
+                                padding: "20px",
+                                maxWidth: "400px",
+                                margin: "0 auto",
+                              }}
                             >
-                              ข
-                            </Typography>
-                            <br></br>
+                              <h2>ยินยอมการใช้งานข้อมูลส่วนบุคคล</h2>
+                              <p>
+                                เพื่อให้บริการที่ดีที่สุด
+                                เราจำเป็นต้องเก็บรวบรวมและใช้ข้อมูลส่วนบุคคลของท่าน
+                                รวมถึงรูปภาพที่ท่านอัปโหลดหรือถ่ายผ่านเว็บไซต์ของเรา
+                                โดยการใช้งานเว็บไซต์นี้
+                                ท่านยินยอมให้เราดำเนินการเก็บรวบรวมและใช้ข้อมูลส่วนบุคคลของท่านตามข้อกำหนดของกฎหมายคุ้มครองข้อมูลส่วนบุคคล
+                                (PDPA)
+                              </p>
+                              <div
+                                style={{
+                                  display: "flex",
+                                  alignItems: "center",
+                                }}
+                              >
+                                <input
+                                  type="checkbox"
+                                  id="consentCheckbox"
+                                  checked={isChecked}
+                                  onChange={handleCheckboxChange}
+                                  style={{ marginRight: "10px" }}
+                                />
+                                <label htmlFor="consentCheckbox">
+                                  ฉันยินยอมให้เก็บรวบรวมและใช้ข้อมูลส่วนบุคคลของฉัน
+                                </label>
+                              </div>
+                            </div>
                             <br></br>
                             <br></br>
                             <Button
                               style={{
-                                backgroundColor: "#e81e26",
+                                backgroundColor: "gray",
                                 color: "white",
                                 padding: "10px 20px",
                                 border: "none",
                                 borderRadius: "4px",
                                 cursor: "pointer",
-                                width: "50%",
+                                width: "40%",
+                                marginRight: "5px",
+                              }}
+                              appearance="primary"
+                              onClick={async () => {
+                                // props.history.goBack();
+                                // props.history.push("https://www.bangkokranch.com/products/");
+                                window.location.href =
+                                  "https://www.bangkokranch.com/products/";
+                              }}
+                            >
+                              ปฏิเสธ
+                            </Button>
+
+                            <Button
+                              disabled={!isChecked}
+                              style={{
+                                backgroundColor: isChecked ? "#e81e26" : "#ccc",
+                                color: "white",
+                                padding: "10px 20px",
+                                border: "none",
+                                borderRadius: "4px",
+                                cursor: "pointer",
+                                width: "40%",
+                                marginRight: "5px",
                               }}
                               appearance="primary"
                               onClick={async () =>
@@ -817,6 +983,7 @@ const FilePage = (props) => {
                             >
                               ตกลง
                             </Button>
+
                             <br></br>
                           </Box>
                         </Grid>
@@ -994,9 +1161,39 @@ const FilePage = (props) => {
                             height="300"
                             style={{ display: "none" }}
                           />
-                          <button id="captureButton" onClick={takePicture}>
+                          <button
+                            id="captureButton"
+                            onClick={takePicture}
+                            style={{
+                              position: "absolute",
+                              bottom: "20px",
+                              left: "50%",
+                              transform: "translateX(-50%)",
+                              backgroundColor: "transparent",
+                              border: "none",
+                              cursor: "pointer",
+                            }}
+                          >
                             <TakeIcon
-                              style={{ fontSize: "80px", color: white[500] }}
+                              style={{ fontSize: "80px", color: "white" }}
+                            />
+                          </button>
+
+                          <button
+                            id="switchCameraButton"
+                            onClick={switchCamera}
+                            style={{
+                              position: "absolute",
+                              top: "10px",
+                              right: "10px",
+                              backgroundColor: "transparent",
+                              border: "none",
+                              cursor: "pointer",
+                            }}
+                          >
+                            {" "}
+                            <CameraswitchIcon
+                              style={{ fontSize: "40px", color: "white" }}
                             />
                           </button>
                         </div>
@@ -1040,6 +1237,7 @@ const FilePage = (props) => {
                     alignItems: "center",
                   }}
                 >
+                  {/* {JSON.stringify(file)} */}
                   <Grid item xs={12} spacing={1}>
                     <h2 style={{ color: "red" }}>Upload รูปถ่าย</h2>
                   </Grid>
@@ -1065,7 +1263,12 @@ const FilePage = (props) => {
                     }
                     alt=""
                     onClick={handleImageClick}
-                    style={{ marginBottom: 16, cursor: "pointer" }} // Add cursor pointer for better UX
+                    style={{
+                      marginBottom: 16,
+                      cursor: "pointer",
+                      border: "8px solid #cdb590",
+                      borderRadius: "25px",
+                    }} // Add cursor pointer for better UX
                   />
 
                   <input
@@ -1194,7 +1397,7 @@ const FilePage = (props) => {
                       ></TextField>
                     </Grid>
 
-                    <Grid item xs={4} spacing={1}>
+                    <Grid item xs={12} spacing={1}>
                       <TextField
                         required
                         fullWidth
@@ -1217,7 +1420,7 @@ const FilePage = (props) => {
                         }}
                       ></TextField>
                     </Grid>
-                    <Grid item xs={4} spacing={1}>
+                    <Grid item xs={12} spacing={1}>
                       <TextField
                         fullWidth
                         required
@@ -1240,7 +1443,7 @@ const FilePage = (props) => {
                         }}
                       ></TextField>
                     </Grid>
-                    <Grid item xs={4} spacing={1}>
+                    <Grid item xs={12} spacing={1}>
                       <TextField
                         fullWidth
                         required
@@ -1302,6 +1505,178 @@ const FilePage = (props) => {
                   <Grid item xs={12} spacing={1}>
                     <h2>ผู้ติดต่อ</h2>
                   </Grid>
+                  <Grid item xs={12} spacing={1}>
+                    <TextField
+                      required
+                      disabled={create ? false : true}
+                      fullWidth
+                      size="small"
+                      variant="outlined"
+                      id="vEmployee"
+                      label="ผู้ติดต่อ"
+                      SelectProps={{
+                        native: true,
+                      }}
+                      // helperText="Please select your order"
+                      value={visitorheader.vEmployee}
+                      values={(values.vEmployee = visitorheader.vEmployee)}
+                      onChange={(event) => {
+                        setvisitorheader({
+                          ...visitorheader,
+                          vEmployee: event.target.value,
+                        });
+                      }}
+                    ></TextField>
+                  </Grid>
+                  <br />
+
+                  <Grid item xs={12} spacing={1}></Grid>
+                </Grid>
+              </Grid>
+            </Grid>
+            <br></br>
+          </Paper>
+          <br />
+
+          <Paper className={classes.paper}>
+            <Grid container item xs={12} spacing={1}>
+              <Grid container item xs={12} spacing={1}>
+                <Grid item xs={12} spacing={1}>
+                  <h2>ความต้องการพิเศษเพิ่มเติม</h2>
+                </Grid>
+                <Grid container spacing={1}>
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={isFoodChecked}
+                          onChange={handleFoodCheckboxChange}
+                          name="checkNumber"
+                          color="primary"
+                        />
+                      }
+                      label="Food & Beverage (อาหารแล้วเครื่องดื่ม)"
+                    />
+                  </Grid>
+                  {isFoodChecked && (
+                    <Grid
+                      item
+                      xs={12}
+                      container
+                      alignItems="center"
+                      spacing={1}
+                    >
+                      <Grid item>
+                        <IconButton onClick={decreaseFoodNumber}>
+                          <Remove />
+                        </IconButton>
+                      </Grid>
+                      <Grid item>
+                        <TextField
+                          type="number"
+                          value={Foodnumber}
+                          onChange={handleFoodNumberChange}
+                          size="small"
+                          variant="outlined"
+                          inputProps={{ min: 0 }}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <IconButton onClick={increaseFoodNumber}>
+                          <Add />
+                        </IconButton>
+                      </Grid>
+                    </Grid>
+                  )}
+
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={isATKChecked}
+                          onChange={handleATKCheckboxChange}
+                          name="checkNumber"
+                          color="primary"
+                        />
+                      }
+                      label="Food & Beverage (อุปกรณ์ตรวจ ATK)"
+                    />
+                  </Grid>
+                  {isATKChecked && (
+                    <Grid
+                      item
+                      xs={12}
+                      container
+                      alignItems="center"
+                      spacing={1}
+                    >
+                      <Grid item>
+                        <IconButton onClick={decreaseATKNumber}>
+                          <Remove />
+                        </IconButton>
+                      </Grid>
+                      <Grid item>
+                        <TextField
+                          type="number"
+                          value={ATKnumber}
+                          onChange={handleATKNumberChange}
+                          size="small"
+                          variant="outlined"
+                          inputProps={{ min: 0 }}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <IconButton onClick={increaseATKNumber}>
+                          <Add />
+                        </IconButton>
+                      </Grid>
+                    </Grid>
+                  )}
+
+                  <Grid item xs={12}>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={isParkChecked}
+                          onChange={handleParkCheckboxChange}
+                          name="checkNumber"
+                          color="primary"
+                        />
+                      }
+                      label="Parking (ที่จอดรถ)"
+                    />
+                  </Grid>
+                  {isParkChecked && (
+                    <Grid
+                      item
+                      xs={12}
+                      container
+                      alignItems="center"
+                      spacing={1}
+                    >
+                      <Grid item>
+                        <IconButton onClick={decreaseParkNumber}>
+                          <Remove />
+                        </IconButton>
+                      </Grid>
+                      <Grid item>
+                        <TextField
+                          type="number"
+                          value={Parknumber}
+                          onChange={handleParkNumberChange}
+                          size="small"
+                          variant="outlined"
+                          inputProps={{ min: 0 }}
+                        />
+                      </Grid>
+                      <Grid item>
+                        <IconButton onClick={increaseParkNumber}>
+                          <Add />
+                        </IconButton>
+                      </Grid>
+                    </Grid>
+                  )}
+
                   <Grid item xs={12} spacing={1}>
                     <TextField
                       required
@@ -1640,13 +2015,12 @@ const FilePage = (props) => {
                 break;
 
               case "SUBMIT":
-                alert("SUBMIT");
+                // alert("SUBMIT");
+
+                // alert(file);
+                // alert(blobfile);
 
                 // alert(visitorheader.vID);
-
-                props.history.push(
-                  "/successpage/" + visitorheader.vID + "/Submit"
-                );
 
                 let formData = new FormData();
                 formData.append("vID", idhead);
@@ -1666,7 +2040,7 @@ const FilePage = (props) => {
                 formData.append("vMeettime", values.vMeettime);
                 formData.append("vEmployee", values.vEmployee);
                 formData.append("vMail", values.vMail);
-                formData.append("imagefile", file);
+                formData.append("imagefile", blobfile);
                 formData.append("imagename", file);
                 formData.append("vCONO", conohead);
                 formData.append("vDIVI", divihead);
@@ -1675,6 +2049,10 @@ const FilePage = (props) => {
                 await dispatch(
                   VisitorHeaderActions.addVisitorHeader(formData, props.history)
                   // CheckoutActions.checkOut(formData)
+                );
+
+                props.history.push(
+                  "/successpage/" + visitorheader.vID + "/Submit"
                 );
 
                 /*

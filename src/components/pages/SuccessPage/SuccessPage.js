@@ -6,6 +6,8 @@ import * as monitoringreceiptActions from "../../../actions/monitoringreceipt.ac
 import IconButton from "@material-ui/core/IconButton";
 import { Save, Delete } from "@material-ui/icons";
 
+import ScreenshotIcon from "@mui/icons-material/Screenshot";
+
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -29,6 +31,7 @@ import {
 } from "@material-ui/core/colors/";
 
 import { withStyles, createMuiTheme } from "@material-ui/core/styles";
+import { size } from "lodash";
 
 const theme = createTheme({
   palette: {
@@ -222,7 +225,29 @@ export default (props) => {
             </div>
           </CSSTransition>
         </div>
-        <button onClick={handleScreenshot}>Take Screenshot</button>
+
+        <Button
+          style={{
+            width: "150px",
+            height: "50px",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            padding: "20px",
+            backgroundColor: "transparent",
+            border: "none",
+          }}
+          variant="contained"
+          size="large"
+          onClick={async () => {
+            handleScreenshot();
+          }}
+        >
+          <ScreenshotIcon style={{ fontSize: "50px", color: "black" }} />
+          Take Screenshot
+        </Button>
       </div>
     </TransitionGroup>
   );

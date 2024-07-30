@@ -392,8 +392,10 @@ const FilePage = (props) => {
   let [imgSrc, setImgSrc] = useState("");
 
   useEffect(() => {
-    dispatch(operationdataActions.getOperationdata());
+    // dispatch(operationdataActions.getOperationdata());
     // alert("xxx " + operationdataReducer.result);
+
+    dispatch(operationdataActions.getOperationfilterdata(fromdate, todate));
   }, []);
 
   console.log(operationdataReducer.result);
@@ -448,7 +450,7 @@ const FilePage = (props) => {
             onClick={async () => {
               //todo
 
-              //alert(rowData.IMAGE);
+              // alert(rowData.CARD);
 
               setvisitorheader({
                 ...visitorheader,
@@ -456,6 +458,8 @@ const FilePage = (props) => {
                 vImage: rowData.IMAGE,
                 vMeetdate: rowData.DATE,
                 vMeettime: rowData.TIME,
+                vRemark: rowData.REMARK,
+                vStatus: rowData.STATUS,
               });
 
               console.log(visitorheader.vImage);
@@ -472,11 +476,15 @@ const FilePage = (props) => {
                 ...visitordialog,
                 vCard: rowData.CARD,
                 vRoom: rowData.ROOM,
+                vEmployee: rowData.EMP,
+                vEmployeedialog: rowData.EMP,
               });
 
               if (rowData.STATUS == "50") {
                 setUpdate1(false);
               } else if (rowData.STATUS == "80") {
+                setUpdate1(true);
+              } else if (rowData.STATUS == "10") {
                 setUpdate1(false);
               } else {
                 setUpdate1(true);
@@ -777,7 +785,7 @@ const FilePage = (props) => {
             : item.STATUS == "15"
             ? "CHECKIN"
             : item.STATUS == "20"
-            ? "SENDMAIL"
+            ? "Wait for Acknowlege"
             : item.STATUS == "30"
             ? "IN　PROCESS..."
             : item.STATUS == "40"
@@ -823,6 +831,8 @@ const FilePage = (props) => {
                 ? false
                 : rowData.STATUS == "20"
                 ? false
+                : rowData.STATUS == "80"
+                ? false
                 : true
             }
             variant="contained"
@@ -854,7 +864,10 @@ const FilePage = (props) => {
                   )
                 );
 
-                await dispatch(operationdataActions.getOperationdata());
+                // await dispatch(operationdataActions.getOperationdata());
+                await dispatch(
+                  operationdataActions.getOperationfilterdata(fromdate, todate)
+                );
 
                 alert("Send email completed");
                 setLoadtable(false);
@@ -914,7 +927,10 @@ const FilePage = (props) => {
               formData.append("vStatuscheck", "CHECKOUT");
               //alert(JSON.stringify(formData));
               await dispatch(CheckoutActions.checkOut(formData));
-              await dispatch(operationdataActions.getOperationdata());
+              // await dispatch(operationdataActions.getOperationdata());
+              await dispatch(
+                operationdataActions.getOperationfilterdata(fromdate, todate)
+              );
             }}
           >
             CHECKOUT
@@ -966,6 +982,8 @@ const FilePage = (props) => {
     vMeetdate: "-",
     vMeettime: "-",
     vEmail: "",
+    vRemark: "",
+    vRemark2: "-",
   };
 
   const initialvisitordialog = {
@@ -1031,11 +1049,12 @@ const FilePage = (props) => {
                       transform: "translate(-50%, -50%)",
                       width: 600,
                       maxHeight: "80vh", // Adjust as needed
-                      bgcolor: "background.paper",
+                      bgcolor: "#efe5d1",
                       boxShadow: 24,
                       p: 4,
                       overflow: "auto",
                       outline: "none",
+                      color: "red",
                     }}
                   >
                     <Typography variant="h6" component="h2" gutterBottom>
@@ -1051,7 +1070,7 @@ const FilePage = (props) => {
                       <Grid item xs={12}>
                         <Box
                           sx={{
-                            bgcolor: "#FFF",
+                            bgcolor: "transparent",
                             color: "primary.contrastText",
                             p: 2,
                             textAlign: "center",
@@ -1062,13 +1081,19 @@ const FilePage = (props) => {
                             height={150}
                             src={`data:image/png;base64,${visitorheader.vImage}`}
                             // alt=""
+                            style={{
+                              marginBottom: 16,
+                              cursor: "pointer",
+                              border: "8px solid #cdb590",
+                              borderRadius: "25px",
+                            }} // Add cursor pointer for better UX
                           />
                         </Box>
                       </Grid>
                       <Grid item xs={6}>
                         <Box
                           sx={{
-                            bgcolor: "#FFF",
+                            bgcolor: "transparent",
                             color: "primary.contrastText",
                             p: 2,
                             textAlign: "center",
@@ -1141,7 +1166,7 @@ const FilePage = (props) => {
                       <Grid item xs={6}>
                         <Box
                           sx={{
-                            bgcolor: "#FFF",
+                            bgcolor: "transparent",
                             color: "secondary.contrastText",
                             p: 2,
                             textAlign: "center",
@@ -1216,7 +1241,7 @@ const FilePage = (props) => {
                     <Grid item xs={12}>
                       <Box
                         sx={{
-                          bgcolor: "#FFF",
+                          bgcolor: "transparent",
                           color: "primary.contrastText",
                           p: 2,
                           textAlign: "center",
@@ -1261,14 +1286,81 @@ const FilePage = (props) => {
                         />
                       </Box>
                     </Grid>
+                    <Grid item xs={12}>
+                      <Box
+                        sx={{
+                          color: "primary.contrastText",
+                          p: 2,
+                          textAlign: "center",
+                        }}
+                      >
+                        <TextField
+                          required
+                          fullWidth
+                          multiline
+                          rows={4}
+                          size="small"
+                          variant="outlined"
+                          id="vRemark"
+                          label="Remark"
+                          SelectProps={{
+                            native: true,
+                          }}
+                          // helperText="Please select your order"
+                          value={visitorheader.vRemark}
+                          values={(values.vReason = visitorheader.vRemark)}
+                          onChange={(event) => {
+                            setvisitorheader({
+                              ...visitorheader,
+                              vRemark: event.target.value,
+                            });
+                          }}
+                        ></TextField>
+                      </Box>
+                    </Grid>
+
+                    {/* <Grid item xs={12}>
+                      <Box
+                        sx={{
+                          color: "primary.contrastText",
+                          p: 2,
+                          textAlign: "center",
+                        }}
+                      >
+                        <TextField
+                          required
+                          fullWidth
+                          multiline
+                          rows={4}
+                          size="small"
+                          variant="outlined"
+                          id="vRemark2"
+                          label="Remark2"
+                          SelectProps={{
+                            native: true,
+                          }}
+                          // helperText="Please select your order"
+                          value={visitorheader.vRemark2}
+                          values={(values.vReason = visitorheader.vRemark2)}
+                          onChange={(event) => {
+                            setvisitorheader({
+                              ...visitorheader,
+                              vRemark2: event.target.value,
+                            });
+                          }}
+                        ></TextField>
+                      </Box>
+                    </Grid> */}
 
                     <Grid item xs={12}>
                       <Box
                         sx={{
-                          bgcolor: "red",
+                          bgcolor: "transparent",
                           color: "primary.contrastText",
                           p: 2,
                           textAlign: "center",
+                          borderRadius: "2px",
+                          color: "red",
                         }}
                       >
                         <MaterialTable
@@ -1396,125 +1488,163 @@ const FilePage = (props) => {
                         />
                       </Box>
                     </Grid>
+
                     <Grid item xs={12}>
                       <Box
                         sx={{
-                          bgcolor: "#FFF",
+                          bgcolor: "transparent",
                           color: "primary.contrastText",
                           p: 2,
                           textAlign: "center",
                         }}
                       >
-                        <Button
-                          disabled={update1 ? false : true}
-                          appearance="primary"
-                          onClick={async () => {
-                            // alert(visitordialog.vEmployeedialog);
-                            // alert(visitordialog.vEmail);
-                            // alert(visitordialog.vCard);
-                            // alert(visitordialog.vRoom);
+                        <Grid container justifyContent="space-between">
+                          <Grid item>
+                            <Button
+                              variant="contained"
+                              style={{
+                                backgroundColor: "#4caf50",
+                              }}
+                              sx={{
+                                "&.Mui-disabled": {
+                                  backgroundColor: "#a5d6a7", // สีเมื่อปุ่มถูกปิดการใช้งาน
+                                },
+                              }}
+                              disabled={!update1}
+                              onClick={async () => {
+                                setLoadtable(true);
+                                setOpen(false);
 
-                            setLoadtable(true);
+                                setTimeout(async () => {
+                                  let formData = new FormData();
+                                  formData.append("vCard", visitordialog.vCard);
+                                  formData.append("vRoom", visitordialog.vRoom);
+                                  formData.append(
+                                    "vEmail",
+                                    visitordialog.vEmail
+                                  );
 
-                            setOpen(false);
-                            // alert(idoperator);
+                                  formData.append(
+                                    "vStatus",
+                                    visitorheader.vStatus
+                                  );
 
-                            setTimeout(() => {
-                              let formData = new FormData();
-                              formData.append("vCard", visitordialog.vCard);
-                              formData.append("vRoom", visitordialog.vRoom);
-                              formData.append("vEmail", visitordialog.vEmail);
-                              formData.append(
-                                "vEmployeedialog",
-                                visitordialog.vEmployeedialog
-                              );
-                              formData.append("vID", idoperator);
+                                  formData.append(
+                                    "vRemark",
+                                    visitorheader.vRemark
+                                  );
+                                  formData.append(
+                                    "vEmployeedialog",
+                                    visitordialog.vEmployeedialog
+                                  );
+                                  formData.append("vID", idoperator);
 
-                              (async function() {
-                                await dispatch(
-                                  roomcardActions.updateROOMCARD(formData)
-                                );
+                                  await dispatch(
+                                    roomcardActions.updateROOMCARD(formData)
+                                  );
+                                  await dispatch(
+                                    roomcardActions.updateEMP(formData)
+                                  );
+                                  await dispatch(
+                                    operationdataActions.getOperationfilterdata(
+                                      fromdate,
+                                      todate
+                                    )
+                                  );
 
-                                await dispatch(
-                                  operationdataActions.getOperationdata()
-                                );
+                                  setLoadtable(false);
+                                }, 1000);
+                              }}
+                            >
+                              Update
+                            </Button>
+                          </Grid>
 
-                                // await dispatch(
-                                //   roomcardActions.updateEMP(formData)
-                                // );
+                          <Grid item>
+                            <Button
+                              variant="contained"
+                              sx={{
+                                backgroundColor: "#4caf50", // สีเมื่อปุ่มเปิดใช้งาน
+                                "&.Mui-disabled": {
+                                  backgroundColor: "#a5d6a7", // สีเมื่อปุ่มถูกปิดการใช้งาน
+                                },
+                              }}
+                              style={{ backgroundColor: "#4caf50" }}
+                              disabled={!checkin}
+                              onClick={async () => {
+                                setLoadtable(true);
+                                setOpen(false);
 
-                                setLoadtable(false);
-                              })();
-                            }, 1000);
-                          }}
-                        >
-                          Update
-                        </Button>
-                        <Button
-                          disabled={checkin ? false : true}
-                          appearance="primary"
-                          onClick={async () => {
-                            // alert(visitordialog.vEmployeedialog);
-                            // alert(visitordialog.vEmail);
-                            // alert(visitordialog.vCard);
-                            // alert(visitordialog.vRoom);
+                                setTimeout(async () => {
+                                  let formData = new FormData();
+                                  formData.append("vCard", visitordialog.vCard);
+                                  formData.append("vRoom", visitordialog.vRoom);
+                                  formData.append(
+                                    "vEmail",
+                                    visitordialog.vEmail
+                                  );
+                                  formData.append(
+                                    "vEmployeedialog",
+                                    visitordialog.vEmployeedialog
+                                  );
+                                  formData.append(
+                                    "vRemark",
+                                    visitorheader.vRemark
+                                  );
+                                  formData.append("vID", idoperator);
+                                  formData.append(
+                                    "vStatus",
+                                    visitorheader.vStatus
+                                  );
 
-                            setLoadtable(true);
+                                  await dispatch(
+                                    roomcardActions.updateROOMCARD(formData)
+                                  );
+                                  await dispatch(
+                                    roomcardActions.updateEMP(formData)
+                                  );
+                                  await dispatch(
+                                    operationdataActions.getOperationfilterdata(
+                                      fromdate,
+                                      todate
+                                    )
+                                  );
+                                  await dispatch(
+                                    sendmailActionspp.SendEmail(
+                                      "EMP",
+                                      idoperator,
+                                      "10",
+                                      "Resend"
+                                    )
+                                  );
 
-                            setOpen(false);
-                            // alert(idoperator);
+                                  setLoadtable(false);
+                                }, 1000);
+                              }}
+                            >
+                              Check In
+                            </Button>
+                          </Grid>
 
-                            setTimeout(() => {
-                              let formData = new FormData();
-                              formData.append("vCard", visitordialog.vCard);
-                              formData.append("vRoom", visitordialog.vRoom);
-                              formData.append("vEmail", visitordialog.vEmail);
-                              formData.append(
-                                "vEmployeedialog",
-                                visitordialog.vEmployeedialog
-                              );
-                              formData.append("vID", idoperator);
-
-                              (async function() {
-                                await dispatch(
-                                  roomcardActions.updateROOMCARD(formData)
-                                );
-
-                                await dispatch(
-                                  roomcardActions.updateEMP(formData)
-                                );
-
-                                await dispatch(
-                                  operationdataActions.getOperationdata()
-                                );
-
-                                await dispatch(
-                                  sendmailActionspp.SendEmail(
-                                    "EMP",
-                                    idoperator,
-                                    "10",
-                                    "Resend"
-                                  ),
-
-                                  setLoadtable(false)
-                                );
-                              })();
-                            }, 1000);
-                          }}
-                        >
-                          CHECK IN
-                        </Button>
-                        <Button
-                          color="red"
-                          appearance="primary"
-                          onClick={async () => {
-                            // alert(visitordialog.vEmail);
-
-                            setOpen(false);
-                          }}
-                        >
-                          ยกเลิก
-                        </Button>
+                          <Grid item>
+                            <Button
+                              variant="outlined"
+                              style={{
+                                color: "white",
+                                backgroundColor: "#E57373",
+                              }}
+                              sx={{
+                                "&.Mui-disabled": {
+                                  borderColor: "#E57373", // สีขอบเมื่อปุ่มถูกปิดการใช้งาน
+                                  color: "#ef9a9a", // สีข้อความเมื่อปุ่มถูกปิดการใช้งาน
+                                },
+                              }}
+                              onClick={() => setOpen(false)}
+                            >
+                              CANCEL
+                            </Button>
+                          </Grid>
+                        </Grid>
                       </Box>
                     </Grid>
                   </Box>
@@ -1526,7 +1656,7 @@ const FilePage = (props) => {
                   <Grid item xs={12}>
                     <Box
                       sx={{
-                        bgcolor: "#FFF",
+                        bgcolor: "transparent",
                         color: "primary.contrastText",
                         p: 2,
                         textAlign: "center",
