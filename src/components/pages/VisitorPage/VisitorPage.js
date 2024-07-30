@@ -1544,8 +1544,88 @@ const FilePage = (props) => {
                 <Grid item xs={12} spacing={1}>
                   <h2>ความต้องการพิเศษเพิ่มเติม</h2>
                 </Grid>
+
+                <Grid container item xs={12} spacing={1}>
+                  <Grid item xs={12} spacing={1}>
+                    <Grid item xs={12} spacing={1}>
+                      <TextField
+                        required
+                        disabled={create ? false : true}
+                        fullWidth
+                        size="small"
+                        variant="outlined"
+                        id="vEmployee"
+                        label="ผู้ติดต่อ"
+                        SelectProps={{
+                          native: true,
+                        }}
+                        // helperText="Please select your order"
+                        value={visitorheader.vEmployee}
+                        values={(values.vEmployee = visitorheader.vEmployee)}
+                        onChange={(event) => {
+                          setvisitorheader({
+                            ...visitorheader,
+                            vEmployee: event.target.value,
+                          });
+                        }}
+                      ></TextField>
+                    </Grid>
+                  </Grid>
+                  <Grid item xs={6} spacing={1}>
+                    <TextField
+                      fullWidth
+                      required
+                      size="small"
+                      type="date"
+                      variant="outlined"
+                      id="vMeetdate"
+                      label="วันนัดเข้าพบ"
+                      SelectProps={{
+                        native: true,
+                      }}
+                      focused
+                      // helperText="Please select your order"
+                      value={visitorheader.vMeetdate}
+                      values={(values.vMeetdate = visitorheader.vMeetdate)}
+                      onChange={(event) => {
+                        setvisitorheader({
+                          ...visitorheader,
+                          vMeetdate: event.target.value,
+                        });
+                      }}
+                    ></TextField>
+                  </Grid>
+                  <Grid item xs={6} spacing={1}>
+                    <TextField
+                      fullWidth
+                      required
+                      size="small"
+                      type="time"
+                      variant="outlined"
+                      id="vMeettime"
+                      label="เวลาเข้าพบ"
+                      focused
+                      SelectProps={{
+                        native: true,
+                      }}
+                      // helperText="Please select your order"
+
+                      value={visitorheader.vMeettime}
+                      values={(values.vMeettime = visitorheader.vMeettime)}
+                      onChange={(event) => {
+                        setvisitorheader({
+                          ...visitorheader,
+                          vMeettime: event.target.value,
+                        });
+                      }}
+                    ></TextField>
+                  </Grid>
+                </Grid>
+
+                <br />
+
                 <Grid container spacing={1}>
-                  <Grid item xs={12}>
+                  <Grid item xs={12} spacing={1}>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -1589,7 +1669,7 @@ const FilePage = (props) => {
                     </Grid>
                   )}
 
-                  <Grid item xs={12}>
+                  <Grid item xs={12} spacing={1}>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -1633,7 +1713,7 @@ const FilePage = (props) => {
                     </Grid>
                   )}
 
-                  <Grid item xs={12}>
+                  <Grid item xs={12} spacing={1}>
                     <FormControlLabel
                       control={
                         <Checkbox
@@ -1678,29 +1758,50 @@ const FilePage = (props) => {
                   )}
 
                   <Grid item xs={12} spacing={1}>
-                    <TextField
-                      required
-                      disabled={create ? false : true}
-                      fullWidth
-                      size="small"
-                      variant="outlined"
-                      id="vEmployee"
-                      label="ผู้ติดต่อ"
-                      SelectProps={{
-                        native: true,
-                      }}
-                      // helperText="Please select your order"
-                      value={visitorheader.vEmployee}
-                      values={(values.vEmployee = visitorheader.vEmployee)}
-                      onChange={(event) => {
-                        setvisitorheader({
-                          ...visitorheader,
-                          vEmployee: event.target.value,
-                        });
-                      }}
-                    ></TextField>
+                    <FormControlLabel
+                      control={
+                        <Checkbox
+                          checked={isETCChecked}
+                          onChange={handleETCCheckboxChange}
+                          name="checkNumber"
+                          color="primary"
+                        />
+                      }
+                      label="Etc... (ความต้องการอื่นๆ)"
+                    />
                   </Grid>
-                  <br />
+                  {isETCChecked && (
+                    <Grid
+                      item
+                      xs={12}
+                      container
+                      alignItems="center"
+                      spacing={1}
+                    >
+                      <TextField
+                        multiline
+                        rows={4}
+                        disabled={create ? false : true}
+                        fullWidth
+                        size="small"
+                        variant="outlined"
+                        id="vETC"
+                        label="Etc..."
+                        SelectProps={{
+                          native: true,
+                        }}
+                        // helperText="Please select your order"
+                        value={visitorheader.vEmployee}
+                        values={(values.vEmployee = visitorheader.vEmployee)}
+                        onChange={(event) => {
+                          setvisitorheader({
+                            ...visitorheader,
+                            vEmployee: event.target.value,
+                          });
+                        }}
+                      ></TextField>
+                    </Grid>
+                  )}
 
                   <Grid item xs={12} spacing={1}></Grid>
                 </Grid>
