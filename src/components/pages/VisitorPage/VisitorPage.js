@@ -2179,14 +2179,17 @@ const FilePage = (props) => {
 
                 if (isETCChecked == false) {
                   formData.append("vETC", "-");
+                  formData.append("vRoom", "-");
+                  formData.append("vMeetdateout");
+                  formData.append("vMeettimeout");
                 } else {
                   formData.append("vETC", visitorheader.vETC);
+                  formData.append("vRoom", visitorheader.vRoom);
+                  formData.append("vMeetdateout", values.vMeetdate);
+                  formData.append("vMeettimeout", "11:59:59 PM");
                 }
 
                 formData.append("vIstoken", Istoken);
-                formData.append("vRoom", visitorheader.vRoom);
-                formData.append("vMeetdateout", visitorheader.vMeetdateout);
-                formData.append("vMeettimeout", visitorheader.vMeettimeout);
 
                 //////////////
 

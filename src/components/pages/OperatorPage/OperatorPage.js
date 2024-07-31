@@ -1090,6 +1090,148 @@ const FilePage = (props) => {
                           />
                         </Box>
                       </Grid>
+
+                      <Grid item xs={6}>
+                        <Box
+                          sx={{
+                            bgcolor: "transparent",
+                            color: "primary.contrastText",
+                            p: 2,
+                            textAlign: "center",
+                          }}
+                        >
+                          <Grid spacing={2}>
+                            <TextField
+                              fullWidth
+                              type="date"
+                              size="small"
+                              variant="outlined"
+                              id="vCheckindate"
+                              label="CHECKIN DATE"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              value={visitorheader.vMeetdate}
+                              // values={(values.vCompany = visitorheader.vCompany)}
+                              onChange={(event) => {
+                                setvisitorheader({
+                                  ...visitorheader,
+                                  vMeetdate: event.target.value,
+                                });
+                              }}
+                            ></TextField>
+                          </Grid>{" "}
+                          <br></br>
+                          <Grid spacing={1}>
+                            <TextField
+                              fullWidth
+                              size="small"
+                              type="date"
+                              variant="outlined"
+                              id="vCheckoutdate"
+                              label="CHECKOUT DATE"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              value={visitorheader.vMeetdateout}
+                              // values={(values.vCompany = visitorheader.vCompany)}
+                              onChange={(event) => {
+                                setvisitorheader({
+                                  ...visitorheader,
+                                  vMeetdateout: event.target.value,
+                                });
+                              }}
+                            ></TextField>
+                          </Grid>{" "}
+                          <br></br>
+                        </Box>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <Box
+                          sx={{
+                            bgcolor: "transparent",
+                            color: "secondary.contrastText",
+                            p: 2,
+                            textAlign: "center",
+                          }}
+                        >
+                          <Grid spacing={1}>
+                            <TextField
+                              fullWidth
+                              type="time"
+                              size="small"
+                              variant="outlined"
+                              id="vCheckintime"
+                              label="CHECKIN TIME"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              value={visitorheader.vMeettime}
+                              // values={(values.vCompany = visitorheader.vCompany)}
+                              onChange={(event) => {
+                                setvisitorheader({
+                                  ...visitorheader,
+                                  vMeettime: event.target.value,
+                                });
+                              }}
+                            ></TextField>
+                          </Grid>
+                          <br></br>
+
+                          <Grid spacing={1}>
+                            <TextField
+                              fullWidth
+                              size="small"
+                              type="time"
+                              variant="outlined"
+                              id="vCheckouttime"
+                              label="CHECKOUT TIME"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              value={visitorheader.vMeettimeout}
+                              // values={(values.vCompany = visitorheader.vCompany)}
+                              onChange={(event) => {
+                                setvisitorheader({
+                                  ...visitorheader,
+                                  vMeettimeout: event.target.value,
+                                });
+                              }}
+                            ></TextField>
+                          </Grid>
+                        </Box>
+                      </Grid>
+
+                      <Grid item xs={12}>
+                        <Box
+                          sx={{
+                            bgcolor: "transparent",
+                            color: "primary.contrastText",
+                            p: 2,
+                            textAlign: "center",
+                          }}
+                        >
+                          <TextField
+                            fullWidth
+                            size="small"
+                            variant="outlined"
+                            id="vRoom"
+                            label="MEETROOM"
+                            SelectProps={{
+                              native: true,
+                            }}
+                            // helperText="Please select your order"
+                            value={visitorheader.vRoom}
+                            values={(values.vRoom = visitorheader.vRoom)}
+                            onChange={(event) => {
+                              setvisitorheader({
+                                ...visitorheader,
+                                vRoom: event.target.value,
+                              });
+                            }}
+                          ></TextField>
+                        </Box>
+                      </Grid>
                       <Grid item xs={6}>
                         <Box
                           sx={{
@@ -1115,6 +1257,27 @@ const FilePage = (props) => {
                                 setvisitorheader({
                                   ...visitorheader,
                                   vMeetdate: event.target.value,
+                                });
+                              }}
+                            ></TextField>
+                          </Grid>{" "}
+                          <br></br>
+                          <Grid spacing={2}>
+                            <TextField
+                              fullWidth
+                              size="small"
+                              variant="outlined"
+                              id="vMeetdateout"
+                              label="MEETDATEOUT"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              value={visitorheader.vMeetdateout}
+                              // values={(values.vCompany = visitorheader.vCompany)}
+                              onChange={(event) => {
+                                setvisitorheader({
+                                  ...visitorheader,
+                                  vMeetdateout: event.target.value,
                                 });
                               }}
                             ></TextField>
@@ -1188,6 +1351,28 @@ const FilePage = (props) => {
                                 setvisitorheader({
                                   ...visitorheader,
                                   vMeettime: event.target.value,
+                                });
+                              }}
+                            ></TextField>
+                          </Grid>
+                          <br></br>
+
+                          <Grid spacing={2}>
+                            <TextField
+                              fullWidth
+                              size="small"
+                              variant="outlined"
+                              id="vMeettimeout"
+                              label="TIMEOUT"
+                              SelectProps={{
+                                native: true,
+                              }}
+                              value={visitorheader.vMeettimeout}
+                              // values={(values.vCompany = visitorheader.vCompany)}
+                              onChange={(event) => {
+                                setvisitorheader({
+                                  ...visitorheader,
+                                  vMeettimeout: event.target.value,
                                 });
                               }}
                             ></TextField>
@@ -1569,7 +1754,7 @@ const FilePage = (props) => {
                                   backgroundColor: "#a5d6a7", // สีเมื่อปุ่มถูกปิดการใช้งาน
                                 },
                               }}
-                              style={{ backgroundColor: "#4caf50" }}
+                              style={{ backgroundColor: "#24a0ed" }}
                               disabled={!checkin}
                               onClick={async () => {
                                 setLoadtable(true);
@@ -1628,9 +1813,75 @@ const FilePage = (props) => {
 
                           <Grid item>
                             <Button
+                              variant="contained"
+                              sx={{
+                                backgroundColor: "#24a0ed", // สีเมื่อปุ่มเปิดใช้งาน
+                                "&.Mui-disabled": {
+                                  backgroundColor: "#a5d6a7", // สีเมื่อปุ่มถูกปิดการใช้งาน
+                                },
+                              }}
+                              style={{ backgroundColor: "#f0ad4e" }}
+                              disabled={!update1}
+                              onClick={async () => {
+                                setLoadtable(true);
+                                setOpen(false);
+
+                                setTimeout(async () => {
+                                  let formData = new FormData();
+                                  formData.append("vCard", visitordialog.vCard);
+                                  formData.append("vRoom", visitordialog.vRoom);
+                                  formData.append(
+                                    "vEmail",
+                                    visitordialog.vEmail
+                                  );
+                                  formData.append(
+                                    "vEmployeedialog",
+                                    visitordialog.vEmployeedialog
+                                  );
+                                  formData.append(
+                                    "vRemark",
+                                    visitorheader.vRemark
+                                  );
+                                  formData.append("vID", idoperator);
+                                  formData.append(
+                                    "vStatus",
+                                    visitorheader.vStatus
+                                  );
+
+                                  await dispatch(
+                                    roomcardActions.updateROOMCARD(formData)
+                                  );
+                                  await dispatch(
+                                    roomcardActions.updateEMP(formData)
+                                  );
+                                  await dispatch(
+                                    operationdataActions.getOperationfilterdata(
+                                      fromdate,
+                                      todate
+                                    )
+                                  );
+                                  await dispatch(
+                                    sendmailActionspp.SendEmail(
+                                      "EMP",
+                                      idoperator,
+                                      "10",
+                                      "Resend"
+                                    )
+                                  );
+
+                                  setLoadtable(false);
+                                }, 1000);
+                              }}
+                            >
+                              Check Out
+                            </Button>
+                          </Grid>
+
+                          <Grid item>
+                            <Button
                               variant="outlined"
                               style={{
-                                color: "white",
+                                color: "black",
                                 backgroundColor: "#E57373",
                               }}
                               sx={{
