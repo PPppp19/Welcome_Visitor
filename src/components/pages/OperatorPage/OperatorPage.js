@@ -460,7 +460,18 @@ const FilePage = (props) => {
                 vMeettime: rowData.TIME,
                 vRemark: rowData.REMARK,
                 vStatus: rowData.STATUS,
+                vMeetdateout: rowData.DATEOUT,
+                vMeettimeout: rowData.TIMEOUT,
+
+                vRoom: rowData.ROOM,
               });
+
+              /* 
+vCheckindate: rowData.STATUS,
+                vCheckintime: rowData.STATUS,
+                vCheckoutdate: rowData.STATUS,
+                vCheckouttime: rowData.STATUS,
+              */
 
               console.log(visitorheader.vImage);
               // let formData = new FormData();
@@ -984,6 +995,10 @@ const FilePage = (props) => {
     vEmail: "",
     vRemark: "",
     vRemark2: "-",
+    vCheckindate: "",
+    vCheckoutdate: "",
+    vCheckintime: "",
+    vCheckouttime: "",
   };
 
   const initialvisitordialog = {
@@ -1111,12 +1126,12 @@ const FilePage = (props) => {
                               SelectProps={{
                                 native: true,
                               }}
-                              value={visitorheader.vMeetdate}
+                              value={visitorheader.vCheckindate}
                               // values={(values.vCompany = visitorheader.vCompany)}
                               onChange={(event) => {
                                 setvisitorheader({
                                   ...visitorheader,
-                                  vMeetdate: event.target.value,
+                                  vCheckindate: event.target.value,
                                 });
                               }}
                             ></TextField>
@@ -1133,12 +1148,12 @@ const FilePage = (props) => {
                               SelectProps={{
                                 native: true,
                               }}
-                              value={visitorheader.vMeetdateout}
+                              value={visitorheader.vCheckoutdate}
                               // values={(values.vCompany = visitorheader.vCompany)}
                               onChange={(event) => {
                                 setvisitorheader({
                                   ...visitorheader,
-                                  vMeetdateout: event.target.value,
+                                  vCheckoutdate: event.target.value,
                                 });
                               }}
                             ></TextField>
@@ -1166,12 +1181,12 @@ const FilePage = (props) => {
                               SelectProps={{
                                 native: true,
                               }}
-                              value={visitorheader.vMeettime}
+                              value={visitorheader.vCheckintime}
                               // values={(values.vCompany = visitorheader.vCompany)}
                               onChange={(event) => {
                                 setvisitorheader({
                                   ...visitorheader,
-                                  vMeettime: event.target.value,
+                                  vCheckintime: event.target.value,
                                 });
                               }}
                             ></TextField>
@@ -1189,12 +1204,12 @@ const FilePage = (props) => {
                               SelectProps={{
                                 native: true,
                               }}
-                              value={visitorheader.vMeettimeout}
+                              value={visitorheader.vCheckouttime}
                               // values={(values.vCompany = visitorheader.vCompany)}
                               onChange={(event) => {
                                 setvisitorheader({
                                   ...visitorheader,
-                                  vMeettimeout: event.target.value,
+                                  vCheckouttime: event.target.value,
                                 });
                               }}
                             ></TextField>
