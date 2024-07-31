@@ -449,6 +449,10 @@ const FilePage = (props) => {
     vMeetdate: materialDateInput,
     vMeettime: time,
     vEmail: "",
+    vRoom: "-",
+    vETC: "-",
+    vMeetdateout: materialDateInput,
+    vMeettimeout: time,
   };
 
   const initialsign = {
@@ -1554,18 +1558,18 @@ const FilePage = (props) => {
                         fullWidth
                         size="small"
                         variant="outlined"
-                        id="vEmployee"
-                        label="ผู้ติดต่อ"
+                        id="vRoom"
+                        label="ห้องประชุม"
                         SelectProps={{
                           native: true,
                         }}
                         // helperText="Please select your order"
-                        value={visitorheader.vEmployee}
-                        values={(values.vEmployee = visitorheader.vEmployee)}
+                        value={visitorheader.vRoom}
+                        values={(values.vRoom = visitorheader.vRoom)}
                         onChange={(event) => {
                           setvisitorheader({
                             ...visitorheader,
-                            vEmployee: event.target.value,
+                            vRoom: event.target.value,
                           });
                         }}
                       ></TextField>
@@ -1578,19 +1582,21 @@ const FilePage = (props) => {
                       size="small"
                       type="date"
                       variant="outlined"
-                      id="vMeetdate"
-                      label="วันนัดเข้าพบ"
+                      id="vMeetdateout"
+                      label="วันสิ้นสุดนัดเข้าพบ"
                       SelectProps={{
                         native: true,
                       }}
                       focused
                       // helperText="Please select your order"
-                      value={visitorheader.vMeetdate}
-                      values={(values.vMeetdate = visitorheader.vMeetdate)}
+                      value={visitorheader.vMeetdateout}
+                      values={
+                        (values.vMeetdateout = visitorheader.vMeetdateout)
+                      }
                       onChange={(event) => {
                         setvisitorheader({
                           ...visitorheader,
-                          vMeetdate: event.target.value,
+                          vMeetdateout: event.target.value,
                         });
                       }}
                     ></TextField>
@@ -1603,19 +1609,21 @@ const FilePage = (props) => {
                       type="time"
                       variant="outlined"
                       id="vMeettime"
-                      label="เวลาเข้าพบ"
+                      label="เวลาสิ้นสุดการเข้าพบ"
                       focused
                       SelectProps={{
                         native: true,
                       }}
                       // helperText="Please select your order"
 
-                      value={visitorheader.vMeettime}
-                      values={(values.vMeettime = visitorheader.vMeettime)}
+                      value={visitorheader.vMeettimeout}
+                      values={
+                        (values.vMeettimeout = visitorheader.vMeettimeout)
+                      }
                       onChange={(event) => {
                         setvisitorheader({
                           ...visitorheader,
-                          vMeettime: event.target.value,
+                          vMeettimeout: event.target.value,
                         });
                       }}
                     ></TextField>
@@ -1791,12 +1799,12 @@ const FilePage = (props) => {
                           native: true,
                         }}
                         // helperText="Please select your order"
-                        value={visitorheader.vEmployee}
-                        values={(values.vEmployee = visitorheader.vEmployee)}
+                        value={visitorheader.vETC}
+                        values={(values.vETC = visitorheader.vETC)}
                         onChange={(event) => {
                           setvisitorheader({
                             ...visitorheader,
-                            vEmployee: event.target.value,
+                            vETC: event.target.value,
                           });
                         }}
                       ></TextField>
@@ -2147,14 +2155,49 @@ const FilePage = (props) => {
                 formData.append("vDIVI", divihead);
                 formData.append("vLocation", locationhead);
 
-                await dispatch(
-                  VisitorHeaderActions.addVisitorHeader(formData, props.history)
-                  // CheckoutActions.checkOut(formData)
-                );
+                //// loginzone
 
-                props.history.push(
-                  "/successpage/" + visitorheader.vID + "/Submit"
-                );
+                if (isFoodChecked == false) {
+                  formData.append("vFoodnumber", 0);
+                } else {
+                  formData.append("vFoodnumber", Foodnumber);
+                }
+                if (isATKChecked == false) {
+                  formData.append("vATKnumber", 0);
+                } else {
+                  formData.append("vATKnumber", ATKnumber);
+                }
+                if (isParkChecked == false) {
+                  formData.append("vParknumber", 0);
+                } else {
+                  formData.append("vParknumber", Parknumber);
+                }
+
+                if (isETCChecked == false) {
+                  formData.append("vETC", "-");
+                } else {
+                  formData.append("vETC", visitorheader.vETC);
+                }
+
+                formData.append("vIstoken", "true");
+                formData.append("vRoom", visitorheader.vRoom);
+                formData.append("vMeetdateout", visitorheader.vMeetdateout);
+                formData.append("vMeettimeout", visitorheader.vMeettimeout);
+
+                //////////////
+
+                // for (var pair of formData.entries()) {
+                //   alert(pair[0] + ", " + pair[1]);
+                // }
+
+                // await dispatch(
+                //   VisitorHeaderActions.addVisitorHeader(formData, props.history)
+                //   // CheckoutActions.checkOut(formData)
+                // );
+
+                // props.history.push(
+                //   "/successpage/" + visitorheader.vID + "/Submit"
+                // );
 
                 /*
 
