@@ -15,6 +15,13 @@ export const HTTP_GETIMAGE_FAILED = "HTTP_GETIMAGE_FAILED";
 export const HTTP_GETIMAGE_SUCCESS = "HTTP_GETIMAGE_SUCCESS";
 export const HTTP_GETIMAGE_CLEAR = "HTTP_GETIMAGE_CLEAR";
 
+//SCHEDULE
+
+export const HTTP_SCHEDULE_SUCCESS = "HTTP_SCHEDULE_SUCCESS";
+export const HTTP_SCHEDULE_FETCHING = "HTTP_SCHEDULE_FETCHING";
+export const HTTP_SCHEDULE_FAILED = "HTTP_SCHEDULE_FAILED";
+export const HTTP_SCHEDULE_CLEAR = "HTTP_SCHEDULE_CLEAR";
+
 // Showvisitor
 
 export const HTTP_SHOWVISITOR_SUCCESS = "HTTP_SHOWVISITOR_SUCCESS";
@@ -427,6 +434,9 @@ export const server = {
 
   //OPERATIONDATA
   GETOPERATIONDATA_URL: `visitor_api/data/getoperationdata`,
+
+  //SCHEDULE
+  GETJSONSCHEDULE_URL: `visitor_api/data/jsonschedule`,
 
   GETOPERATIONFILTERDATA_URL: `visitor_api/data/getoperationfilterdata`,
 

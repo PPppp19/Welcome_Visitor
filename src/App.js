@@ -34,6 +34,8 @@ import VisitorPage from "./components/pages/VisitorPage";
 import OperatorPage from "./components/pages/OperatorPage";
 import ShowVisitorPage from "./components/pages/ShowVisitorPage";
 import SuccessPage from "./components/pages/SuccessPage";
+import PlanPage from "./components/pages/PlanPage";
+
 // import SuccessPage from "./components/pages/SuccessPage";
 
 const useStyles = makeStyles((theme) => ({
@@ -163,6 +165,8 @@ export default function App() {
         />
 
         <PrivateRoute exact path="/operator" component={OperatorPage} />
+
+        <PrivateRoute exact path="/PlanPage" component={PlanPage} />
 
         <PrivateRoute exact path="/main_request" component={Main_Requestpage} />
         <PrivateRoute

@@ -54,6 +54,7 @@ import operationdataReducer from "./operatordata.reducer";
 import showvisitorReducer from "./showvisitor.reducer";
 import getimageReducer from "./getimage.reducer";
 import locationReducer from "./location.reducer";
+import scheduleReducer from "./schedule.reducer";
 
 export default combineReducers({
   companyReducer,
@@ -111,4 +112,5 @@ export default combineReducers({
   showvisitorReducer,
   getimageReducer,
   locationReducer,
+  scheduleReducer,
 });
