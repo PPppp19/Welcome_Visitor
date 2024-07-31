@@ -20,6 +20,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./VisitorPage.css"; // Import the CSS file
 
+import * as sendmailActionspp from "../../../actions/sendemailpp.action";
+
 import { Switch, Route, useLocation, useHistory } from "react-router-dom";
 
 import { CSSTransition, TransitionGroup } from "react-transition-group";
@@ -240,6 +242,8 @@ const FilePage = (props) => {
   const [ATKnumber, setATKNumber] = useState(0);
   const [Parknumber, setParkNumber] = useState(0);
   const [ETCnumber, ETCFoodNumber] = useState(0);
+
+  const [Istoken, setIsToken] = useState(false);
 
   const handleFoodCheckboxChange = (event) => {
     setFoodIsChecked(event.target.checked);
@@ -2179,7 +2183,7 @@ const FilePage = (props) => {
                   formData.append("vETC", visitorheader.vETC);
                 }
 
-                formData.append("vIstoken", "true");
+                formData.append("vIstoken", Istoken);
                 formData.append("vRoom", visitorheader.vRoom);
                 formData.append("vMeetdateout", visitorheader.vMeetdateout);
                 formData.append("vMeettimeout", visitorheader.vMeettimeout);
@@ -2190,14 +2194,32 @@ const FilePage = (props) => {
                 //   alert(pair[0] + ", " + pair[1]);
                 // }
 
-                // await dispatch(
-                //   VisitorHeaderActions.addVisitorHeader(formData, props.history)
-                //   // CheckoutActions.checkOut(formData)
-                // );
+                await dispatch(
+                  VisitorHeaderActions.addVisitorHeader(formData, props.history)
+                  // CheckoutActions.checkOut(formData)
+                );
 
-                // props.history.push(
-                //   "/successpage/" + visitorheader.vID + "/Submit"
-                // );
+                if (Istoken) {
+                  await dispatch(
+                    sendmailActionspp.SendEmailFAP(
+                      "SPRQ",
+                      idhead,
+                      "10",
+                      "Resend",
+                      isFoodChecked,
+                      Foodnumber,
+                      isATKChecked,
+                      ATKnumber,
+                      isParkChecked,
+                      Parknumber,
+                      visitorheader.vETC
+                    )
+                  );
+                }
+
+                props.history.push(
+                  "/successpage/" + visitorheader.vID + "/Submit"
+                );
 
                 /*
 

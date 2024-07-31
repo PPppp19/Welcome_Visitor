@@ -402,6 +402,8 @@ export const server = {
   // SEND EMAIL PP
   SENDEMAILPP_URL: `visitor_api/data/sendemailpp`,
 
+  SENDEMAILFAP_URL: `visitor_api/data/sendemailppFAP`,
+
   // UPDATEFOLLOWER
 
   UPDATEFOLLOWER_URL: `visitor_api/data/updatefollower`,

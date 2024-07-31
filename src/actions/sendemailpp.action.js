@@ -38,3 +38,29 @@ export const SendEmail = (prefix, ordno, status, submit) => {
     }
   };
 };
+
+export const SendEmailFAP = (
+  prefix,
+  ordno,
+  status,
+  submit,
+  foodcheck,
+  foodqty,
+  atkcheck,
+  atkqty,
+  parkcheck,
+  parkqty,
+  etc
+) => {
+  return async (dispatch) => {
+    try {
+      let result = await httpClient.post(
+        `${server.SENDEMAILFAP_URL}/${prefix}/${ordno}/${status}/${submit}/${foodcheck}/${foodqty}/${atkcheck}/${atkqty}/${parkcheck}/${parkqty}/${etc}`
+      );
+
+      return result.data;
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+};
