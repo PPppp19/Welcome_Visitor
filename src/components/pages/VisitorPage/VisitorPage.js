@@ -2180,13 +2180,13 @@ const FilePage = (props) => {
                 if (isETCChecked == false) {
                   formData.append("vETC", "-");
                   formData.append("vRoom", "-");
-                  formData.append("vMeetdateout");
-                  formData.append("vMeettimeout");
+                  formData.append("vMeetdateout", values.vMeetdate);
+                  formData.append("vMeettimeout", "11:59");
                 } else {
                   formData.append("vETC", visitorheader.vETC);
                   formData.append("vRoom", visitorheader.vRoom);
                   formData.append("vMeetdateout", values.vMeetdate);
-                  formData.append("vMeettimeout", "11:59:59 PM");
+                  formData.append("vMeettimeout", values.vMeettime);
                 }
 
                 formData.append("vIstoken", Istoken);

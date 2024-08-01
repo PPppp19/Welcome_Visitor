@@ -450,8 +450,6 @@ const FilePage = (props) => {
             onClick={async () => {
               //todo
 
-              // alert(rowData.CARD);
-
               setvisitorheader({
                 ...visitorheader,
                 vEmployee: rowData.EMP,
@@ -462,7 +460,10 @@ const FilePage = (props) => {
                 vStatus: rowData.STATUS,
                 vMeetdateout: rowData.DATEOUT,
                 vMeettimeout: rowData.TIMEOUT,
-
+                vCheckindate: rowData.CHECKIN,
+                vCheckoutdate: rowData.CHECKOUT,
+                vCheckintime: rowData.CHECKINTIME,
+                vCheckouttime: rowData.CHECKOUTTIME,
                 vRoom: rowData.ROOM,
               });
 
@@ -1259,6 +1260,7 @@ vCheckindate: rowData.STATUS,
                           <Grid spacing={2}>
                             <TextField
                               fullWidth
+                              type="date"
                               size="small"
                               variant="outlined"
                               id="vMeetdate"
@@ -1280,6 +1282,7 @@ vCheckindate: rowData.STATUS,
                           <Grid spacing={2}>
                             <TextField
                               fullWidth
+                              type="date"
                               size="small"
                               variant="outlined"
                               id="vMeetdateout"
@@ -1354,6 +1357,7 @@ vCheckindate: rowData.STATUS,
                             <TextField
                               fullWidth
                               size="small"
+                              type="time"
                               variant="outlined"
                               id="vMeettime"
                               label="TIME"
@@ -1376,6 +1380,7 @@ vCheckindate: rowData.STATUS,
                             <TextField
                               fullWidth
                               size="small"
+                              type="time"
                               variant="outlined"
                               id="vMeettimeout"
                               label="TIMEOUT"
@@ -1779,6 +1784,24 @@ vCheckindate: rowData.STATUS,
                                   let formData = new FormData();
                                   formData.append("vCard", visitordialog.vCard);
                                   formData.append("vRoom", visitordialog.vRoom);
+
+                                  formData.append(
+                                    "vCheckin",
+                                    visitorheader.vCheckindate
+                                  );
+                                  formData.append(
+                                    "vCheckintime",
+                                    visitorheader.vCheckintime
+                                  );
+                                  formData.append(
+                                    "vCheckout",
+                                    visitorheader.vCheckoutdate
+                                  );
+                                  formData.append(
+                                    "vCheckouttime",
+                                    visitorheader.vCheckouttime
+                                  );
+
                                   formData.append(
                                     "vEmail",
                                     visitordialog.vEmail
