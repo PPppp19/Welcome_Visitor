@@ -450,9 +450,16 @@ const FilePage = (props) => {
             onClick={async () => {
               //todo
 
+              // alert(JSON.stringify(rowData));
+
+              const parts = rowData.EMP.split(" : ");
+              const name = parts[0];
+              const email = parts[1];
+
               setvisitorheader({
                 ...visitorheader,
-                vEmployee: rowData.EMP,
+                vEmployee: name,
+                vEmail: email,
                 vImage: rowData.IMAGE,
                 vMeetdate: rowData.DATE,
                 vMeettime: rowData.TIME,
@@ -937,6 +944,9 @@ vCheckindate: rowData.STATUS,
               let formData = new FormData();
               formData.append("vID", rowData.ID);
               formData.append("vStatuscheck", "CHECKOUT");
+              formData.append("vCheckout", visitorheader.vCheckouttime);
+              formData.append("vCheckouttime", visitorheader.vCheckouttime);
+
               //alert(JSON.stringify(formData));
               await dispatch(CheckoutActions.checkOut(formData));
               // await dispatch(operationdataActions.getOperationdata());
@@ -1119,6 +1129,7 @@ vCheckindate: rowData.STATUS,
                           <Grid spacing={2}>
                             <TextField
                               fullWidth
+                              disabled={!checkin}
                               type="date"
                               size="small"
                               variant="outlined"
@@ -1141,6 +1152,7 @@ vCheckindate: rowData.STATUS,
                           <Grid spacing={1}>
                             <TextField
                               fullWidth
+                              disabled={!update1}
                               size="small"
                               type="date"
                               variant="outlined"
@@ -1174,6 +1186,7 @@ vCheckindate: rowData.STATUS,
                           <Grid spacing={1}>
                             <TextField
                               fullWidth
+                              disabled={!checkin}
                               type="time"
                               size="small"
                               variant="outlined"
@@ -1197,6 +1210,7 @@ vCheckindate: rowData.STATUS,
                           <Grid spacing={1}>
                             <TextField
                               fullWidth
+                              disabled={!update1}
                               size="small"
                               type="time"
                               variant="outlined"
@@ -1218,7 +1232,7 @@ vCheckindate: rowData.STATUS,
                         </Box>
                       </Grid>
 
-                      <Grid item xs={12}>
+                      {/* <Grid item xs={12}>
                         <Box
                           sx={{
                             bgcolor: "transparent",
@@ -1247,7 +1261,7 @@ vCheckindate: rowData.STATUS,
                             }}
                           ></TextField>
                         </Box>
-                      </Grid>
+                      </Grid> */}
                       <Grid item xs={6}>
                         <Box
                           sx={{
@@ -1260,6 +1274,7 @@ vCheckindate: rowData.STATUS,
                           <Grid spacing={2}>
                             <TextField
                               fullWidth
+                              disabled={!checkin}
                               type="date"
                               size="small"
                               variant="outlined"
@@ -1282,6 +1297,7 @@ vCheckindate: rowData.STATUS,
                           <Grid spacing={2}>
                             <TextField
                               fullWidth
+                              disabled={!checkin}
                               type="date"
                               size="small"
                               variant="outlined"
@@ -1357,6 +1373,7 @@ vCheckindate: rowData.STATUS,
                             <TextField
                               fullWidth
                               size="small"
+                              disabled={!checkin}
                               type="time"
                               variant="outlined"
                               id="vMeettime"
@@ -1379,6 +1396,7 @@ vCheckindate: rowData.STATUS,
                           <Grid spacing={2}>
                             <TextField
                               fullWidth
+                              disabled={!checkin}
                               size="small"
                               type="time"
                               variant="outlined"
@@ -1429,11 +1447,11 @@ vCheckindate: rowData.STATUS,
                               SelectProps={{
                                 native: true,
                               }}
-                              value={visitordialog.vEmail}
+                              value={visitorheader.vEmail}
                               // values={(values.vCompany = visitorheader.vCompany)}
                               onChange={(event) => {
-                                setvisitordialog({
-                                  ...visitordialog,
+                                visitorheader({
+                                  ...visitorheader,
                                   vEmail: event.target.value,
                                 });
                               }}
@@ -1726,7 +1744,23 @@ vCheckindate: rowData.STATUS,
                                   formData.append("vRoom", visitordialog.vRoom);
                                   formData.append(
                                     "vEmail",
-                                    visitordialog.vEmail
+                                    visitorheader.vEmail
+                                  );
+                                  formData.append(
+                                    "vCheckin",
+                                    visitorheader.vCheckindate
+                                  );
+                                  formData.append(
+                                    "vCheckintime",
+                                    visitorheader.vCheckintime
+                                  );
+                                  formData.append(
+                                    "vCheckout",
+                                    visitorheader.vCheckoutdate
+                                  );
+                                  formData.append(
+                                    "vCheckouttime",
+                                    visitorheader.vCheckouttime
                                   );
 
                                   formData.append(
@@ -1804,7 +1838,7 @@ vCheckindate: rowData.STATUS,
 
                                   formData.append(
                                     "vEmail",
-                                    visitordialog.vEmail
+                                    visitorheader.vEmail
                                   );
                                   formData.append(
                                     "vEmployeedialog",
@@ -1861,54 +1895,31 @@ vCheckindate: rowData.STATUS,
                               style={{ backgroundColor: "#f0ad4e" }}
                               disabled={!update1}
                               onClick={async () => {
-                                setLoadtable(true);
+                                // alert(rowData.ID);
+                                let formData = new FormData();
+                                formData.append("vID", idoperator);
+                                formData.append("vStatuscheck", "CHECKOUT");
+                                formData.append(
+                                  "vCheckout",
+                                  visitorheader.vCheckoutdate
+                                );
+                                formData.append(
+                                  "vCheckouttime",
+                                  visitorheader.vCheckouttime
+                                );
+
+                                //alert(JSON.stringify(formData));
+                                await dispatch(
+                                  CheckoutActions.checkOutwithdatetime(formData)
+                                );
+                                // await dispatch(operationdataActions.getOperationdata());
+                                await dispatch(
+                                  operationdataActions.getOperationfilterdata(
+                                    fromdate,
+                                    todate
+                                  )
+                                );
                                 setOpen(false);
-
-                                setTimeout(async () => {
-                                  let formData = new FormData();
-                                  formData.append("vCard", visitordialog.vCard);
-                                  formData.append("vRoom", visitordialog.vRoom);
-                                  formData.append(
-                                    "vEmail",
-                                    visitordialog.vEmail
-                                  );
-                                  formData.append(
-                                    "vEmployeedialog",
-                                    visitordialog.vEmployeedialog
-                                  );
-                                  formData.append(
-                                    "vRemark",
-                                    visitorheader.vRemark
-                                  );
-                                  formData.append("vID", idoperator);
-                                  formData.append(
-                                    "vStatus",
-                                    visitorheader.vStatus
-                                  );
-
-                                  await dispatch(
-                                    roomcardActions.updateROOMCARD(formData)
-                                  );
-                                  await dispatch(
-                                    roomcardActions.updateEMP(formData)
-                                  );
-                                  await dispatch(
-                                    operationdataActions.getOperationfilterdata(
-                                      fromdate,
-                                      todate
-                                    )
-                                  );
-                                  await dispatch(
-                                    sendmailActionspp.SendEmail(
-                                      "EMP",
-                                      idoperator,
-                                      "10",
-                                      "Resend"
-                                    )
-                                  );
-
-                                  setLoadtable(false);
-                                }, 1000);
                               }}
                             >
                               Check Out

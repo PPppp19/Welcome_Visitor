@@ -426,6 +426,8 @@ export const server = {
 
   CHECKOUT1_URL: `visitor_api/data/checkout1`,
 
+  CHECKOUTWITHDATETIME_URL: `visitor_api/data/checkoutwithdatetime`,
+
   // Login API
   LOGINAUTHEN_URL: `authen_api/auth/loginauthen`,
   LOGIN_URL: `authen_api/auth/login`,

@@ -47,3 +47,18 @@ export const checkOut1 = (formData, history) => {
     }
   };
 };
+
+export const checkOutwithdatetime = (formData, history) => {
+  return async (dispatch) => {
+    try {
+      let result = await httpClient.put(
+        server.CHECKOUTWITHDATETIME_URL,
+        formData
+      );
+      //alert(JSON.stringify(result.data));
+      return result.data;
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+};

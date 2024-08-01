@@ -9,6 +9,7 @@ import SplitPane from "react-split-pane";
 import Card from "@material-ui/core/Card";
 import ImageUploading from "react-images-uploading";
 import Autocomplete from "@mui/material/Autocomplete";
+import * as sendmailActionspp from "../../../actions/sendemailpp.action";
 
 import * as operationdataActions from "../../../actions/operatordata.action";
 import { styled } from "@mui/material/styles";
@@ -301,6 +302,8 @@ const FilePage = (props) => {
     vCIO: "WUTINA_ULI",
   };
 
+  const [idoperator, setIDOPERATOR] = React.useState("24000000");
+
   const initialvisitorheader = {
     vCono: "BR",
     vID: "2400000",
@@ -317,7 +320,7 @@ const FilePage = (props) => {
     vMeetdate: "",
     vMeettime: "",
     vEmail: "",
-    vROOMNO: "",
+    vROOMNO: "-",
     vRemark: "-",
   };
 
@@ -436,6 +439,7 @@ const FilePage = (props) => {
     // dispatch(employeeActions.getEmployee());
 
     setLOCATIONHEAD(params.location);
+    setIDOPERATOR(params.id);
   }, []);
 
   useEffect(() => {
@@ -634,7 +638,6 @@ const FilePage = (props) => {
                         <TextField
                           className={classes.textField}
                           fullWidth
-                          required
                           size="small"
                           variant="outlined"
                           id="vROOMNO"
@@ -926,6 +929,16 @@ const FilePage = (props) => {
 
                 // alert(JSON.stringify(formData));
                 await dispatch(CheckoutActions.checkOut(formData));
+
+                await dispatch(
+                  sendmailActionspp.SendEmail(
+                    "SHOW",
+                    idoperator,
+                    "10",
+                    "Resend"
+                  )
+                );
+
                 alert("REJECT Completed");
                 props.history.push(
                   "/successpage/" + visitorheader.vID + "/Reject"
