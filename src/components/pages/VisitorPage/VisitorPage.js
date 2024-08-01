@@ -673,6 +673,9 @@ const FilePage = (props) => {
 
   useEffect(() => {
     let params = props.match.params;
+
+    console.log(loginActions.getToken());
+
     // dispatch(employeeActions.getEmployee());
     console.log("PPPPPP");
     setvisitorheader({

@@ -71,7 +71,7 @@ const doGetLoginAuthen = async (dispatch, value, history) => {
       localStorage.setItem(server.AUTHEN_TOKEN_KEY, result.data.token);
       localStorage.setItem(server.REFRESH_TOKEN_KEY, result.data.refreshToken);
       dispatch(setStateLoginToSuccess(result));
-      history.push("/");
+      history.push("/planpage");
     } else {
       // console.log(JSON.stringify(result.data.message));
       dispatch(setStateLoginToFailed(result.data.message));
