@@ -15,6 +15,7 @@ import Modal from "@material-ui/core/Modal";
 import Box from "@material-ui/core/Box";
 import "./PlanPage.css"; // นำเข้าไฟล์ CSS เพื่อจัดการกับสไตล์
 import * as scheduleActions from "../../../actions/schedule.action";
+import * as ShowVisitorActions from "../../../actions/showvisitor.action";
 
 const theme = createTheme({
   palette: {
@@ -68,6 +69,8 @@ const MyCalendar = () => {
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
+  const [image64, setImage64] = useState("-");
+
   useEffect(() => {
     dispatch(scheduleActions.getjsonschedule());
   }, [dispatch]);
@@ -75,10 +78,16 @@ const MyCalendar = () => {
   useEffect(() => {
     if (scheduleReducer.result) {
       const formattedEvents = scheduleReducer.result.map((event) => ({
+        ID: event.ID,
+        IMG: event.IMG,
         title: event.TITLE,
         start: new Date(event.START),
         end: new Date(event.END),
         room: event.ROOM, // assuming the room data is available in the response
+        FOOD: event.FOOD,
+        ATK: event.ATK,
+        PARK: event.PARK,
+        ETC: event.ETC,
       }));
       setEvents(formattedEvents);
     }
@@ -100,6 +109,14 @@ const MyCalendar = () => {
 
   const handleSelectEvent = (event) => {
     setSelectedEvent(event);
+
+    (async function() {
+      let visitordetail = await dispatch(
+        ShowVisitorActions.getshowVisitor(event.ID, "11")
+      );
+
+      setImage64(visitordetail[0].IMAGE);
+    })(); // <-- Immediately invoked function expression (IIFE)
   };
 
   const handleCloseModal = () => {
@@ -126,9 +143,24 @@ const MyCalendar = () => {
         className={classes.modal}
       >
         <Box className={classes.modalContent}>
-          <Typography variant="h6">Event Details</Typography>
+          <Typography variant="h6">Visitor Details</Typography>
           {selectedEvent && (
             <div>
+              <Typography>
+                <strong>ID:</strong> {selectedEvent.ID}
+              </Typography>
+              <Box display="flex" justifyContent="center" mb={2}>
+                <img
+                  style={{
+                    border: "8px solid #cdb590",
+                    borderRadius: "10px",
+                  }}
+                  width={300}
+                  height={300}
+                  src={`data:image/png;base64,${image64}`}
+                  alt=""
+                />
+              </Box>
               <Typography>
                 <strong>Title:</strong> {selectedEvent.title}
               </Typography>
@@ -142,6 +174,18 @@ const MyCalendar = () => {
               </Typography>
               <Typography>
                 <strong>Room:</strong> {selectedEvent.room}
+              </Typography>
+              <Typography>
+                <strong>FOOD:</strong> {selectedEvent.FOOD}
+              </Typography>
+              <Typography>
+                <strong>ATK:</strong> {selectedEvent.ATK}
+              </Typography>
+              <Typography>
+                <strong>PARK:</strong> {selectedEvent.PARK}
+              </Typography>
+              <Typography>
+                <strong>ETC:</strong> {selectedEvent.ETC}
               </Typography>
             </div>
           )}

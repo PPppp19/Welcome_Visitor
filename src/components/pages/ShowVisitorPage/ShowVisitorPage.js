@@ -464,6 +464,8 @@ const FilePage = (props) => {
         ShowVisitorActions.getshowVisitor(params.id, params.location)
       );
 
+      // alert(visitordetail[0].IMAGE);
+
       setvisitorheader({
         ...visitorheader,
         vID: params.id,
@@ -935,7 +937,7 @@ const FilePage = (props) => {
                 formData.append("vRemark", visitorheader.vRemark);
 
                 // alert(JSON.stringify(formData));
-                await dispatch(CheckoutActions.checkOut(formData));
+                await dispatch(CheckoutActions.checkOut1(formData));
 
                 await dispatch(
                   sendmailActionspp.SendEmailwithoutauthen(
