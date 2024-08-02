@@ -2184,7 +2184,7 @@ const FilePage = (props) => {
                   formData.append("vParknumber", Parknumber);
                 }
 
-                if (isETCChecked == false) {
+                if (Istoken == false) {
                   formData.append("vETC", "-");
                   formData.append("vRoom", "-");
                   formData.append("vMeetdateout", values.vMeetdate);
@@ -2192,8 +2192,8 @@ const FilePage = (props) => {
                 } else {
                   formData.append("vETC", visitorheader.vETC);
                   formData.append("vRoom", visitorheader.vRoom);
-                  formData.append("vMeetdateout", values.vMeetdate);
-                  formData.append("vMeettimeout", values.vMeettime);
+                  formData.append("vMeetdateout", values.vMeetdateout);
+                  formData.append("vMeettimeout", values.vMeettimeout);
                 }
 
                 formData.append("vIstoken", Istoken);
