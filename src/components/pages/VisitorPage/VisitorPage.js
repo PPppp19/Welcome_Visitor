@@ -698,7 +698,7 @@ const FilePage = (props) => {
 
   const columnsFollower = [
     {
-      title: "ชื่อ-สกุล",
+      title: "Full Name (ชื่อ-สกุล)",
       field: "H_SURNAME",
       headerStyle: { whiteSpace: "nowrap", textAlign: "center" },
       cellStyle: {
@@ -1252,7 +1252,9 @@ const FilePage = (props) => {
                 >
                   {/* {JSON.stringify(file)} */}
                   <Grid item xs={12} spacing={1}>
-                    <h2 style={{ color: "red" }}>Upload รูปถ่าย</h2>
+                    <h2 style={{ color: "red" }}>
+                      Upload your photo(อัพโหลด รูปถ่าย)
+                    </h2>
                   </Grid>
                 </Box>
                 <Box
@@ -1311,7 +1313,7 @@ const FilePage = (props) => {
                 <Grid container item xs={12} spacing={1}>
                   <Grid container item xs={12} spacing={1}>
                     <Grid item xs={12} spacing={1}>
-                      <h2>ผู้มาติดต่อ</h2>
+                      <h2>Visitor (ผู้มาติดต่อ)</h2>
                     </Grid>
 
                     <Grid item xs={12} spacing={1}>
@@ -1322,7 +1324,7 @@ const FilePage = (props) => {
                         size="small"
                         variant="outlined"
                         id="vCompany"
-                        label="บริษัทผู้ติดต่อ"
+                        label="Company Name (บริษัทผู้ติดต่อ)"
                         SelectProps={{
                           native: true,
                         }}
@@ -1345,7 +1347,7 @@ const FilePage = (props) => {
                         size="small"
                         variant="outlined"
                         id="vLicense"
-                        label="ทะเบียนรถ"
+                        label="Vehicle licence (ทะเบียนรถ)"
                         SelectProps={{
                           native: true,
                         }}
@@ -1368,7 +1370,7 @@ const FilePage = (props) => {
                         type="date"
                         variant="outlined"
                         id="vMeetdate"
-                        label="วันนัดเข้าพบ"
+                        label="Meeting Date (วันนัดเข้าพบ)"
                         SelectProps={{
                           native: true,
                         }}
@@ -1392,7 +1394,7 @@ const FilePage = (props) => {
                         type="time"
                         variant="outlined"
                         id="vMeettime"
-                        label="เวลาเข้าพบ"
+                        label="Meeting Time (เวลาเข้าพบ)"
                         focused
                         SelectProps={{
                           native: true,
@@ -1418,7 +1420,7 @@ const FilePage = (props) => {
                         size="small"
                         variant="outlined"
                         id="vName"
-                        label="ชื่อ"
+                        label="Name (ชื่อ)"
                         SelectProps={{
                           native: true,
                         }}
@@ -1441,7 +1443,7 @@ const FilePage = (props) => {
                         size="small"
                         variant="outlined"
                         id="vSurname"
-                        label="นามสกุล"
+                        label="Surname (นามสกุล)"
                         SelectProps={{
                           native: true,
                         }}
@@ -1464,7 +1466,7 @@ const FilePage = (props) => {
                         size="small"
                         variant="outlined"
                         id="vTel"
-                        label="เบอร์โทร"
+                        label="Tel. (เบอร์โทร)"
                         SelectProps={{
                           native: true,
                         }}
@@ -1489,7 +1491,7 @@ const FilePage = (props) => {
                         size="small"
                         variant="outlined"
                         id="vReason"
-                        label="เหตุผล"
+                        label="Contact Reason (เหตุผลการเข้าพบ)"
                         SelectProps={{
                           native: true,
                         }}
@@ -1516,7 +1518,7 @@ const FilePage = (props) => {
               <Grid container item xs={12} spacing={1}>
                 <Grid container item xs={12} spacing={1}>
                   <Grid item xs={12} spacing={1}>
-                    <h2>ผู้ติดต่อ</h2>
+                    <h2>Employee (พนักงานที่ต้องการจะติดต่อ)</h2>
                   </Grid>
                   <Grid item xs={12} spacing={1}>
                     <TextField
@@ -1526,7 +1528,7 @@ const FilePage = (props) => {
                       size="small"
                       variant="outlined"
                       id="vEmployee"
-                      label="ผู้ติดต่อ"
+                      label="Employee Name (ผู้ติดต่อ)"
                       SelectProps={{
                         native: true,
                       }}
@@ -1556,7 +1558,10 @@ const FilePage = (props) => {
               <Grid container item xs={12} spacing={1}>
                 <Grid container item xs={12} spacing={1}>
                   <Grid item xs={12} spacing={1}>
-                    <h2>ความต้องการพิเศษเพิ่มเติม</h2>
+                    <h2>
+                      Additional Special Requirements
+                      (ความต้องการพิเศษเพิ่มเติม)
+                    </h2>
                   </Grid>
 
                   <Grid container item xs={12} spacing={1}>
@@ -1569,7 +1574,7 @@ const FilePage = (props) => {
                           size="small"
                           variant="outlined"
                           id="vRoom"
-                          label="ห้องประชุม"
+                          label="Meeting Room (ห้องประชุม)"
                           SelectProps={{
                             native: true,
                           }}
@@ -1593,7 +1598,7 @@ const FilePage = (props) => {
                         type="date"
                         variant="outlined"
                         id="vMeetdateout"
-                        label="วันสิ้นสุดนัดเข้าพบ"
+                        label="Meeting Timeout (วัน)"
                         SelectProps={{
                           native: true,
                         }}
@@ -1619,7 +1624,7 @@ const FilePage = (props) => {
                         type="time"
                         variant="outlined"
                         id="vMeettime"
-                        label="เวลาสิ้นสุดการเข้าพบ"
+                        label="Meeting Timeout (เวลา)"
                         focused
                         SelectProps={{
                           native: true,
@@ -1837,7 +1842,7 @@ const FilePage = (props) => {
                 <Grid container item xs={12} spacing={1}>
                   <Grid container item xs={12} spacing={1}></Grid>
                   <Grid item xs={12} spacing={1}>
-                    <h2>ผู้ติดตาม</h2>
+                    <h2>Follower (ผู้ติดตาม)</h2>
                   </Grid>
                   <Grid item xs={12} spacing={1}>
                     <MaterialTable
