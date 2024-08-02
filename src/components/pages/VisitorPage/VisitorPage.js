@@ -674,7 +674,9 @@ const FilePage = (props) => {
   useEffect(() => {
     let params = props.match.params;
 
-    console.log(loginActions.getToken());
+    // alert(loginActions.getToken());
+
+    setIsToken(loginActions.getToken() != null);
 
     // dispatch(employeeActions.getEmployee());
     console.log("PPPPPP");
@@ -1549,281 +1551,283 @@ const FilePage = (props) => {
           </Paper>
           <br />
 
-          <Paper className={classes.paper}>
-            <Grid container item xs={12} spacing={1}>
+          {Istoken && (
+            <Paper className={classes.paper}>
               <Grid container item xs={12} spacing={1}>
-                <Grid item xs={12} spacing={1}>
-                  <h2>ความต้องการพิเศษเพิ่มเติม</h2>
-                </Grid>
-
                 <Grid container item xs={12} spacing={1}>
                   <Grid item xs={12} spacing={1}>
+                    <h2>ความต้องการพิเศษเพิ่มเติม</h2>
+                  </Grid>
+
+                  <Grid container item xs={12} spacing={1}>
                     <Grid item xs={12} spacing={1}>
+                      <Grid item xs={12} spacing={1}>
+                        <TextField
+                          required
+                          disabled={create ? false : true}
+                          fullWidth
+                          size="small"
+                          variant="outlined"
+                          id="vRoom"
+                          label="ห้องประชุม"
+                          SelectProps={{
+                            native: true,
+                          }}
+                          // helperText="Please select your order"
+                          value={visitorheader.vRoom}
+                          values={(values.vRoom = visitorheader.vRoom)}
+                          onChange={(event) => {
+                            setvisitorheader({
+                              ...visitorheader,
+                              vRoom: event.target.value,
+                            });
+                          }}
+                        ></TextField>
+                      </Grid>
+                    </Grid>
+                    <Grid item xs={6} spacing={1}>
                       <TextField
+                        fullWidth
                         required
-                        disabled={create ? false : true}
-                        fullWidth
                         size="small"
+                        type="date"
                         variant="outlined"
-                        id="vRoom"
-                        label="ห้องประชุม"
+                        id="vMeetdateout"
+                        label="วันสิ้นสุดนัดเข้าพบ"
                         SelectProps={{
                           native: true,
                         }}
+                        focused
                         // helperText="Please select your order"
-                        value={visitorheader.vRoom}
-                        values={(values.vRoom = visitorheader.vRoom)}
+                        value={visitorheader.vMeetdateout}
+                        values={
+                          (values.vMeetdateout = visitorheader.vMeetdateout)
+                        }
                         onChange={(event) => {
                           setvisitorheader({
                             ...visitorheader,
-                            vRoom: event.target.value,
+                            vMeetdateout: event.target.value,
                           });
                         }}
                       ></TextField>
                     </Grid>
-                  </Grid>
-                  <Grid item xs={6} spacing={1}>
-                    <TextField
-                      fullWidth
-                      required
-                      size="small"
-                      type="date"
-                      variant="outlined"
-                      id="vMeetdateout"
-                      label="วันสิ้นสุดนัดเข้าพบ"
-                      SelectProps={{
-                        native: true,
-                      }}
-                      focused
-                      // helperText="Please select your order"
-                      value={visitorheader.vMeetdateout}
-                      values={
-                        (values.vMeetdateout = visitorheader.vMeetdateout)
-                      }
-                      onChange={(event) => {
-                        setvisitorheader({
-                          ...visitorheader,
-                          vMeetdateout: event.target.value,
-                        });
-                      }}
-                    ></TextField>
-                  </Grid>
-                  <Grid item xs={6} spacing={1}>
-                    <TextField
-                      fullWidth
-                      required
-                      size="small"
-                      type="time"
-                      variant="outlined"
-                      id="vMeettime"
-                      label="เวลาสิ้นสุดการเข้าพบ"
-                      focused
-                      SelectProps={{
-                        native: true,
-                      }}
-                      // helperText="Please select your order"
-
-                      value={visitorheader.vMeettimeout}
-                      values={
-                        (values.vMeettimeout = visitorheader.vMeettimeout)
-                      }
-                      onChange={(event) => {
-                        setvisitorheader({
-                          ...visitorheader,
-                          vMeettimeout: event.target.value,
-                        });
-                      }}
-                    ></TextField>
-                  </Grid>
-                </Grid>
-
-                <br />
-
-                <Grid container spacing={1}>
-                  <Grid item xs={12} spacing={1}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={isFoodChecked}
-                          onChange={handleFoodCheckboxChange}
-                          name="checkNumber"
-                          color="primary"
-                        />
-                      }
-                      label="Food & Beverage (อาหารแล้วเครื่องดื่ม)"
-                    />
-                  </Grid>
-                  {isFoodChecked && (
-                    <Grid
-                      item
-                      xs={12}
-                      container
-                      alignItems="center"
-                      spacing={1}
-                    >
-                      <Grid item>
-                        <IconButton onClick={decreaseFoodNumber}>
-                          <Remove />
-                        </IconButton>
-                      </Grid>
-                      <Grid item>
-                        <TextField
-                          type="number"
-                          value={Foodnumber}
-                          onChange={handleFoodNumberChange}
-                          size="small"
-                          variant="outlined"
-                          inputProps={{ min: 0 }}
-                        />
-                      </Grid>
-                      <Grid item>
-                        <IconButton onClick={increaseFoodNumber}>
-                          <Add />
-                        </IconButton>
-                      </Grid>
-                    </Grid>
-                  )}
-
-                  <Grid item xs={12} spacing={1}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={isATKChecked}
-                          onChange={handleATKCheckboxChange}
-                          name="checkNumber"
-                          color="primary"
-                        />
-                      }
-                      label="Food & Beverage (อุปกรณ์ตรวจ ATK)"
-                    />
-                  </Grid>
-                  {isATKChecked && (
-                    <Grid
-                      item
-                      xs={12}
-                      container
-                      alignItems="center"
-                      spacing={1}
-                    >
-                      <Grid item>
-                        <IconButton onClick={decreaseATKNumber}>
-                          <Remove />
-                        </IconButton>
-                      </Grid>
-                      <Grid item>
-                        <TextField
-                          type="number"
-                          value={ATKnumber}
-                          onChange={handleATKNumberChange}
-                          size="small"
-                          variant="outlined"
-                          inputProps={{ min: 0 }}
-                        />
-                      </Grid>
-                      <Grid item>
-                        <IconButton onClick={increaseATKNumber}>
-                          <Add />
-                        </IconButton>
-                      </Grid>
-                    </Grid>
-                  )}
-
-                  <Grid item xs={12} spacing={1}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={isParkChecked}
-                          onChange={handleParkCheckboxChange}
-                          name="checkNumber"
-                          color="primary"
-                        />
-                      }
-                      label="Parking (ที่จอดรถ)"
-                    />
-                  </Grid>
-                  {isParkChecked && (
-                    <Grid
-                      item
-                      xs={12}
-                      container
-                      alignItems="center"
-                      spacing={1}
-                    >
-                      <Grid item>
-                        <IconButton onClick={decreaseParkNumber}>
-                          <Remove />
-                        </IconButton>
-                      </Grid>
-                      <Grid item>
-                        <TextField
-                          type="number"
-                          value={Parknumber}
-                          onChange={handleParkNumberChange}
-                          size="small"
-                          variant="outlined"
-                          inputProps={{ min: 0 }}
-                        />
-                      </Grid>
-                      <Grid item>
-                        <IconButton onClick={increaseParkNumber}>
-                          <Add />
-                        </IconButton>
-                      </Grid>
-                    </Grid>
-                  )}
-
-                  <Grid item xs={12} spacing={1}>
-                    <FormControlLabel
-                      control={
-                        <Checkbox
-                          checked={isETCChecked}
-                          onChange={handleETCCheckboxChange}
-                          name="checkNumber"
-                          color="primary"
-                        />
-                      }
-                      label="Etc... (ความต้องการอื่นๆ)"
-                    />
-                  </Grid>
-                  {isETCChecked && (
-                    <Grid
-                      item
-                      xs={12}
-                      container
-                      alignItems="center"
-                      spacing={1}
-                    >
+                    <Grid item xs={6} spacing={1}>
                       <TextField
-                        multiline
-                        rows={4}
-                        disabled={create ? false : true}
                         fullWidth
+                        required
                         size="small"
+                        type="time"
                         variant="outlined"
-                        id="vETC"
-                        label="Etc..."
+                        id="vMeettime"
+                        label="เวลาสิ้นสุดการเข้าพบ"
+                        focused
                         SelectProps={{
                           native: true,
                         }}
                         // helperText="Please select your order"
-                        value={visitorheader.vETC}
-                        values={(values.vETC = visitorheader.vETC)}
+
+                        value={visitorheader.vMeettimeout}
+                        values={
+                          (values.vMeettimeout = visitorheader.vMeettimeout)
+                        }
                         onChange={(event) => {
                           setvisitorheader({
                             ...visitorheader,
-                            vETC: event.target.value,
+                            vMeettimeout: event.target.value,
                           });
                         }}
                       ></TextField>
                     </Grid>
-                  )}
+                  </Grid>
 
-                  <Grid item xs={12} spacing={1}></Grid>
+                  <br />
+
+                  <Grid container spacing={1}>
+                    <Grid item xs={12} spacing={1}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={isFoodChecked}
+                            onChange={handleFoodCheckboxChange}
+                            name="checkNumber"
+                            color="primary"
+                          />
+                        }
+                        label="Food & Beverage (อาหารแล้วเครื่องดื่ม)"
+                      />
+                    </Grid>
+                    {isFoodChecked && (
+                      <Grid
+                        item
+                        xs={12}
+                        container
+                        alignItems="center"
+                        spacing={1}
+                      >
+                        <Grid item>
+                          <IconButton onClick={decreaseFoodNumber}>
+                            <Remove />
+                          </IconButton>
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            type="number"
+                            value={Foodnumber}
+                            onChange={handleFoodNumberChange}
+                            size="small"
+                            variant="outlined"
+                            inputProps={{ min: 0 }}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <IconButton onClick={increaseFoodNumber}>
+                            <Add />
+                          </IconButton>
+                        </Grid>
+                      </Grid>
+                    )}
+
+                    <Grid item xs={12} spacing={1}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={isATKChecked}
+                            onChange={handleATKCheckboxChange}
+                            name="checkNumber"
+                            color="primary"
+                          />
+                        }
+                        label="Food & Beverage (อุปกรณ์ตรวจ ATK)"
+                      />
+                    </Grid>
+                    {isATKChecked && (
+                      <Grid
+                        item
+                        xs={12}
+                        container
+                        alignItems="center"
+                        spacing={1}
+                      >
+                        <Grid item>
+                          <IconButton onClick={decreaseATKNumber}>
+                            <Remove />
+                          </IconButton>
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            type="number"
+                            value={ATKnumber}
+                            onChange={handleATKNumberChange}
+                            size="small"
+                            variant="outlined"
+                            inputProps={{ min: 0 }}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <IconButton onClick={increaseATKNumber}>
+                            <Add />
+                          </IconButton>
+                        </Grid>
+                      </Grid>
+                    )}
+
+                    <Grid item xs={12} spacing={1}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={isParkChecked}
+                            onChange={handleParkCheckboxChange}
+                            name="checkNumber"
+                            color="primary"
+                          />
+                        }
+                        label="Parking (ที่จอดรถ)"
+                      />
+                    </Grid>
+                    {isParkChecked && (
+                      <Grid
+                        item
+                        xs={12}
+                        container
+                        alignItems="center"
+                        spacing={1}
+                      >
+                        <Grid item>
+                          <IconButton onClick={decreaseParkNumber}>
+                            <Remove />
+                          </IconButton>
+                        </Grid>
+                        <Grid item>
+                          <TextField
+                            type="number"
+                            value={Parknumber}
+                            onChange={handleParkNumberChange}
+                            size="small"
+                            variant="outlined"
+                            inputProps={{ min: 0 }}
+                          />
+                        </Grid>
+                        <Grid item>
+                          <IconButton onClick={increaseParkNumber}>
+                            <Add />
+                          </IconButton>
+                        </Grid>
+                      </Grid>
+                    )}
+
+                    <Grid item xs={12} spacing={1}>
+                      <FormControlLabel
+                        control={
+                          <Checkbox
+                            checked={isETCChecked}
+                            onChange={handleETCCheckboxChange}
+                            name="checkNumber"
+                            color="primary"
+                          />
+                        }
+                        label="Etc... (ความต้องการอื่นๆ)"
+                      />
+                    </Grid>
+                    {isETCChecked && (
+                      <Grid
+                        item
+                        xs={12}
+                        container
+                        alignItems="center"
+                        spacing={1}
+                      >
+                        <TextField
+                          multiline
+                          rows={4}
+                          disabled={create ? false : true}
+                          fullWidth
+                          size="small"
+                          variant="outlined"
+                          id="vETC"
+                          label="Etc..."
+                          SelectProps={{
+                            native: true,
+                          }}
+                          // helperText="Please select your order"
+                          value={visitorheader.vETC}
+                          values={(values.vETC = visitorheader.vETC)}
+                          onChange={(event) => {
+                            setvisitorheader({
+                              ...visitorheader,
+                              vETC: event.target.value,
+                            });
+                          }}
+                        ></TextField>
+                      </Grid>
+                    )}
+
+                    <Grid item xs={12} spacing={1}></Grid>
+                  </Grid>
                 </Grid>
               </Grid>
-            </Grid>
-            <br></br>
-          </Paper>
+              <br></br>
+            </Paper>
+          )}
           <br />
 
           <Paper className={classes.paper}>

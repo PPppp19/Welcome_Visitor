@@ -303,6 +303,9 @@ const FilePage = (props) => {
   };
 
   const [idoperator, setIDOPERATOR] = React.useState("24000000");
+  const [cono, setCono] = React.useState("10");
+  const [divi, setDivi] = React.useState("101");
+  const [location, setLocation] = React.useState("11");
 
   const initialvisitorheader = {
     vCono: "BR",
@@ -440,6 +443,10 @@ const FilePage = (props) => {
 
     setLOCATIONHEAD(params.location);
     setIDOPERATOR(params.id);
+
+    setCono("10");
+    setDivi("101");
+    setLocation(params.location);
   }, []);
 
   useEffect(() => {
@@ -931,15 +938,22 @@ const FilePage = (props) => {
                 await dispatch(CheckoutActions.checkOut(formData));
 
                 await dispatch(
-                  sendmailActionspp.SendEmail(
+                  sendmailActionspp.SendEmailwithoutauthen(
                     "SHOW",
                     idoperator,
                     "10",
-                    "Resend"
+                    "Resend",
+                    cono,
+                    divi,
+                    location
                   )
                 );
 
-                alert("REJECT Completed");
+                // alert(cono);
+                // alert(divi);
+                // alert(location);
+
+                // alert("REJECT Completed");
                 props.history.push(
                   "/successpage/" + visitorheader.vID + "/Reject"
                 );

@@ -39,6 +39,28 @@ export const SendEmail = (prefix, ordno, status, submit) => {
   };
 };
 
+export const SendEmailwithoutauthen = (
+  prefix,
+  ordno,
+  status,
+  submit,
+  cono,
+  divi,
+  location
+) => {
+  return async (dispatch) => {
+    try {
+      let result = await httpClient.post(
+        `${server.SENDEMAILWITHOUTAUTHEN_URL}/${prefix}/${ordno}/${status}/${submit}/${cono}/${divi}/${location}`
+      );
+
+      return result.data;
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+};
+
 export const SendEmailFAP = (
   prefix,
   ordno,

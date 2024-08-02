@@ -347,6 +347,19 @@ const MiniDrawer = (props) => {
         <List>
           <ListItem
             component={NavLink}
+            to="/PlanPage"
+            button
+            key="Schedule"
+            activeClassName={classes.isActive}
+          >
+            <ListItemIcon>
+              <ViewListIcon color={"primary"} />
+            </ListItemIcon>
+            <ListItemText primary="Schedule Page" />
+          </ListItem>
+
+          <ListItem
+            component={NavLink}
             to={link}
             button
             key="visitor"
