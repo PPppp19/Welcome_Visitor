@@ -234,11 +234,17 @@ const useStyles = makeStyles((theme) => ({
 
 const FilePage = (props) => {
   const [isFoodChecked, setFoodIsChecked] = useState(false);
+  const [isBeverageChecked, setBeverageIsChecked] = useState(false);
+  const [isSnacksChecked, setSnacksIsChecked] = useState(false);
+  const [isSandalsChecked, setSandalsIsChecked] = useState(false);
   const [isATKChecked, setATKIsChecked] = useState(false);
   const [isParkChecked, setParkIsChecked] = useState(false);
   const [isETCChecked, setETCIsChecked] = useState(false);
 
   const [Foodnumber, setFoodNumber] = useState(0);
+  const [Beveragenumber, setBeverageNumber] = useState(0);
+  const [Snacksnumber, setSnacksNumber] = useState(0);
+  const [Sandalsnumber, setSandalsNumber] = useState(0);
   const [ATKnumber, setATKNumber] = useState(0);
   const [Parknumber, setParkNumber] = useState(0);
   const [ETCnumber, ETCFoodNumber] = useState(0);
@@ -247,6 +253,18 @@ const FilePage = (props) => {
 
   const handleFoodCheckboxChange = (event) => {
     setFoodIsChecked(event.target.checked);
+  };
+
+  const handleBeverageCheckboxChange = (event) => {
+    setBeverageIsChecked(event.target.checked);
+  };
+
+  const handleSnacksCheckboxChange = (event) => {
+    setSnacksIsChecked(event.target.checked);
+  };
+
+  const handleSandalsCheckboxChange = (event) => {
+    setSandalsIsChecked(event.target.checked);
   };
 
   const handleFoodNumberChange = (event) => {
@@ -277,6 +295,18 @@ const FilePage = (props) => {
     setFoodNumber((prevNumber) => prevNumber + 1);
   };
 
+  const increaseBeverageNumber = () => {
+    setBeverageNumber((prevNumber) => prevNumber + 1);
+  };
+
+  const increaseSnacksNumber = () => {
+    setSnacksNumber((prevNumber) => prevNumber + 1);
+  };
+
+  const increaseSandalsNumber = () => {
+    setSandalsNumber((prevNumber) => prevNumber + 1);
+  };
+
   const increaseATKNumber = () => {
     setATKNumber((prevNumber) => prevNumber + 1);
   };
@@ -287,6 +317,18 @@ const FilePage = (props) => {
 
   const decreaseFoodNumber = () => {
     setFoodNumber((prevNumber) => (prevNumber > 0 ? prevNumber - 1 : 0));
+  };
+
+  const decreaseBeverageNumber = () => {
+    setBeverageNumber((prevNumber) => (prevNumber > 0 ? prevNumber - 1 : 0));
+  };
+
+  const decreaseSnacksNumber = () => {
+    setSnacksNumber((prevNumber) => (prevNumber > 0 ? prevNumber - 1 : 0));
+  };
+
+  const decreaseSandalsNumber = () => {
+    setSandalsNumber((prevNumber) => (prevNumber > 0 ? prevNumber - 1 : 0));
   };
 
   const decreaseATKNumber = () => {
@@ -1648,185 +1690,321 @@ const FilePage = (props) => {
                   <br />
 
                   <Grid container spacing={1}>
-                    <Grid item xs={12} spacing={1}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={isFoodChecked}
-                            onChange={handleFoodCheckboxChange}
-                            name="checkNumber"
-                            color="primary"
-                          />
-                        }
-                        label="Food & Beverage (อาหารแล้วเครื่องดื่ม)"
-                      />
-                    </Grid>
-                    {isFoodChecked && (
-                      <Grid
-                        item
-                        xs={12}
-                        container
-                        alignItems="center"
-                        spacing={1}
-                      >
-                        <Grid item>
-                          <IconButton onClick={decreaseFoodNumber}>
-                            <Remove />
-                          </IconButton>
+                    <Grid container spacing={1}>
+                      <Grid item xs={12} spacing={1}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={isFoodChecked}
+                              onChange={handleFoodCheckboxChange}
+                              name="checkNumber"
+                              color="primary"
+                            />
+                          }
+                          label="Food (อาหาร)"
+                        />
+                      </Grid>
+                      {isFoodChecked && (
+                        <Grid
+                          item
+                          xs={12}
+                          container
+                          alignItems="center"
+                          spacing={1}
+                        >
+                          <Grid item>
+                            <IconButton onClick={decreaseFoodNumber}>
+                              <Remove />
+                            </IconButton>
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              type="number"
+                              value={Foodnumber}
+                              onChange={handleFoodNumberChange}
+                              size="small"
+                              variant="outlined"
+                              inputProps={{ min: 0 }}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <IconButton onClick={increaseFoodNumber}>
+                              <Add />
+                            </IconButton>
+                          </Grid>
                         </Grid>
-                        <Grid item>
+                      )}
+                    </Grid>
+
+                    <Grid container spacing={1}>
+                      <Grid item xs={12} spacing={1}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={isBeverageChecked}
+                              onChange={handleBeverageCheckboxChange}
+                              name="checkNumber"
+                              color="primary"
+                            />
+                          }
+                          label="Beverage (เครื่องดื่ม)"
+                        />
+                      </Grid>
+                      {isBeverageChecked && (
+                        <Grid
+                          item
+                          xs={12}
+                          container
+                          alignItems="center"
+                          spacing={1}
+                        >
+                          <Grid item>
+                            <IconButton onClick={decreaseBeverageNumber}>
+                              <Remove />
+                            </IconButton>
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              type="number"
+                              value={Beveragenumber}
+                              onChange={handleBeverageCheckboxChange}
+                              size="small"
+                              variant="outlined"
+                              inputProps={{ min: 0 }}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <IconButton onClick={increaseBeverageNumber}>
+                              <Add />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
+                      )}
+
+                      <Grid item xs={12} spacing={1}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={isSnacksChecked}
+                              onChange={handleSnacksCheckboxChange}
+                              name="checkNumber"
+                              color="primary"
+                            />
+                          }
+                          label="Snacks (ขนมทานเล่น)"
+                        />
+                      </Grid>
+                      {isSnacksChecked && (
+                        <Grid
+                          item
+                          xs={12}
+                          container
+                          alignItems="center"
+                          spacing={1}
+                        >
+                          <Grid item>
+                            <IconButton onClick={decreaseSnacksNumber}>
+                              <Remove />
+                            </IconButton>
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              type="number"
+                              value={Snacksnumber}
+                              onChange={handleSnacksCheckboxChange}
+                              size="small"
+                              variant="outlined"
+                              inputProps={{ min: 0 }}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <IconButton onClick={increaseSnacksNumber}>
+                              <Add />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
+                      )}
+
+                      <Grid item xs={12} spacing={1}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={isSandalsChecked}
+                              onChange={handleSandalsCheckboxChange}
+                              name="checkNumber"
+                              color="primary"
+                            />
+                          }
+                          label="Sandals for entering the line (รองเท้าเข้าไลน์)"
+                        />
+                      </Grid>
+                      {isSandalsChecked && (
+                        <Grid
+                          item
+                          xs={12}
+                          container
+                          alignItems="center"
+                          spacing={1}
+                        >
+                          <Grid item>
+                            <IconButton onClick={decreaseSandalsNumber}>
+                              <Remove />
+                            </IconButton>
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              type="number"
+                              value={Sandalsnumber}
+                              onChange={handleSandalsCheckboxChange}
+                              size="small"
+                              variant="outlined"
+                              inputProps={{ min: 0 }}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <IconButton onClick={increaseSandalsNumber}>
+                              <Add />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
+                      )}
+
+                      <Grid item xs={12} spacing={1}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={isATKChecked}
+                              onChange={handleATKCheckboxChange}
+                              name="checkNumber"
+                              color="primary"
+                            />
+                          }
+                          label="Antigen test (อุปกรณ์ตรวจ ATK)"
+                        />
+                      </Grid>
+                      {isATKChecked && (
+                        <Grid
+                          item
+                          xs={12}
+                          container
+                          alignItems="center"
+                          spacing={1}
+                        >
+                          <Grid item>
+                            <IconButton onClick={decreaseATKNumber}>
+                              <Remove />
+                            </IconButton>
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              type="number"
+                              value={ATKnumber}
+                              onChange={handleATKNumberChange}
+                              size="small"
+                              variant="outlined"
+                              inputProps={{ min: 0 }}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <IconButton onClick={increaseATKNumber}>
+                              <Add />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
+                      )}
+
+                      <Grid item xs={12} spacing={1}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={isParkChecked}
+                              onChange={handleParkCheckboxChange}
+                              name="checkNumber"
+                              color="primary"
+                            />
+                          }
+                          label="Parking (ที่จอดรถ)"
+                        />
+                      </Grid>
+                      {isParkChecked && (
+                        <Grid
+                          item
+                          xs={12}
+                          container
+                          alignItems="center"
+                          spacing={1}
+                        >
+                          <Grid item>
+                            <IconButton onClick={decreaseParkNumber}>
+                              <Remove />
+                            </IconButton>
+                          </Grid>
+                          <Grid item>
+                            <TextField
+                              type="number"
+                              value={Parknumber}
+                              onChange={handleParkNumberChange}
+                              size="small"
+                              variant="outlined"
+                              inputProps={{ min: 0 }}
+                            />
+                          </Grid>
+                          <Grid item>
+                            <IconButton onClick={increaseParkNumber}>
+                              <Add />
+                            </IconButton>
+                          </Grid>
+                        </Grid>
+                      )}
+
+                      <Grid item xs={12} spacing={1}>
+                        <FormControlLabel
+                          control={
+                            <Checkbox
+                              checked={isETCChecked}
+                              onChange={handleETCCheckboxChange}
+                              name="checkNumber"
+                              color="primary"
+                            />
+                          }
+                          label="Etc... (ความต้องการอื่นๆ)"
+                        />
+                      </Grid>
+                      {isETCChecked && (
+                        <Grid
+                          item
+                          xs={12}
+                          container
+                          alignItems="center"
+                          spacing={1}
+                        >
                           <TextField
-                            type="number"
-                            value={Foodnumber}
-                            onChange={handleFoodNumberChange}
+                            multiline
+                            rows={4}
+                            disabled={create ? false : true}
+                            fullWidth
                             size="small"
                             variant="outlined"
-                            inputProps={{ min: 0 }}
-                          />
+                            id="vETC"
+                            label="Etc..."
+                            SelectProps={{
+                              native: true,
+                            }}
+                            // helperText="Please select your order"
+                            value={visitorheader.vETC}
+                            values={(values.vETC = visitorheader.vETC)}
+                            onChange={(event) => {
+                              setvisitorheader({
+                                ...visitorheader,
+                                vETC: event.target.value,
+                              });
+                            }}
+                          ></TextField>
                         </Grid>
-                        <Grid item>
-                          <IconButton onClick={increaseFoodNumber}>
-                            <Add />
-                          </IconButton>
-                        </Grid>
-                      </Grid>
-                    )}
+                      )}
 
-                    <Grid item xs={12} spacing={1}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={isATKChecked}
-                            onChange={handleATKCheckboxChange}
-                            name="checkNumber"
-                            color="primary"
-                          />
-                        }
-                        label="Food & Beverage (อุปกรณ์ตรวจ ATK)"
-                      />
+                      <Grid item xs={12} spacing={1}></Grid>
                     </Grid>
-                    {isATKChecked && (
-                      <Grid
-                        item
-                        xs={12}
-                        container
-                        alignItems="center"
-                        spacing={1}
-                      >
-                        <Grid item>
-                          <IconButton onClick={decreaseATKNumber}>
-                            <Remove />
-                          </IconButton>
-                        </Grid>
-                        <Grid item>
-                          <TextField
-                            type="number"
-                            value={ATKnumber}
-                            onChange={handleATKNumberChange}
-                            size="small"
-                            variant="outlined"
-                            inputProps={{ min: 0 }}
-                          />
-                        </Grid>
-                        <Grid item>
-                          <IconButton onClick={increaseATKNumber}>
-                            <Add />
-                          </IconButton>
-                        </Grid>
-                      </Grid>
-                    )}
-
-                    <Grid item xs={12} spacing={1}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={isParkChecked}
-                            onChange={handleParkCheckboxChange}
-                            name="checkNumber"
-                            color="primary"
-                          />
-                        }
-                        label="Parking (ที่จอดรถ)"
-                      />
-                    </Grid>
-                    {isParkChecked && (
-                      <Grid
-                        item
-                        xs={12}
-                        container
-                        alignItems="center"
-                        spacing={1}
-                      >
-                        <Grid item>
-                          <IconButton onClick={decreaseParkNumber}>
-                            <Remove />
-                          </IconButton>
-                        </Grid>
-                        <Grid item>
-                          <TextField
-                            type="number"
-                            value={Parknumber}
-                            onChange={handleParkNumberChange}
-                            size="small"
-                            variant="outlined"
-                            inputProps={{ min: 0 }}
-                          />
-                        </Grid>
-                        <Grid item>
-                          <IconButton onClick={increaseParkNumber}>
-                            <Add />
-                          </IconButton>
-                        </Grid>
-                      </Grid>
-                    )}
-
-                    <Grid item xs={12} spacing={1}>
-                      <FormControlLabel
-                        control={
-                          <Checkbox
-                            checked={isETCChecked}
-                            onChange={handleETCCheckboxChange}
-                            name="checkNumber"
-                            color="primary"
-                          />
-                        }
-                        label="Etc... (ความต้องการอื่นๆ)"
-                      />
-                    </Grid>
-                    {isETCChecked && (
-                      <Grid
-                        item
-                        xs={12}
-                        container
-                        alignItems="center"
-                        spacing={1}
-                      >
-                        <TextField
-                          multiline
-                          rows={4}
-                          disabled={create ? false : true}
-                          fullWidth
-                          size="small"
-                          variant="outlined"
-                          id="vETC"
-                          label="Etc..."
-                          SelectProps={{
-                            native: true,
-                          }}
-                          // helperText="Please select your order"
-                          value={visitorheader.vETC}
-                          values={(values.vETC = visitorheader.vETC)}
-                          onChange={(event) => {
-                            setvisitorheader({
-                              ...visitorheader,
-                              vETC: event.target.value,
-                            });
-                          }}
-                        ></TextField>
-                      </Grid>
-                    )}
-
-                    <Grid item xs={12} spacing={1}></Grid>
                   </Grid>
                 </Grid>
               </Grid>
@@ -2178,6 +2356,24 @@ const FilePage = (props) => {
                 } else {
                   formData.append("vFoodnumber", Foodnumber);
                 }
+
+                if (isBeverageChecked == false) {
+                  formData.append("vBeveragenumber", 0);
+                } else {
+                  formData.append("vBeveragenumber", Beveragenumber);
+                }
+
+                if (isSnacksChecked == false) {
+                  formData.append("vSnacksnumber", 0);
+                } else {
+                  formData.append("vSnacksnumber", Snacksnumber);
+                }
+                if (isSandalsChecked == false) {
+                  formData.append("vSandalsnumber", 0);
+                } else {
+                  formData.append("vSandalsnumber", Sandalsnumber);
+                }
+
                 if (isATKChecked == false) {
                   formData.append("vATKnumber", 0);
                 } else {
@@ -2223,11 +2419,29 @@ const FilePage = (props) => {
                       "Resend",
                       isFoodChecked,
                       Foodnumber,
+
                       isATKChecked,
                       ATKnumber,
                       isParkChecked,
                       Parknumber,
-                      visitorheader.vETC
+                      visitorheader.vETC,
+                      isBeverageChecked,
+                      Beveragenumber,
+
+                      isSnacksChecked,
+                      Snacksnumber,
+
+                      isSandalsChecked,
+                      Sandalsnumber,
+
+                      values.vMeetdate,
+                      values.vMeettime,
+                      values.vMeetdateout,
+                      values.vMeettimeout,
+                      visitorheader.vRoom,
+                      values.vCompany,
+                      values.vName,
+                      values.vSurname
                     )
                   );
                 }

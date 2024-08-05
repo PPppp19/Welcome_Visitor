@@ -72,12 +72,30 @@ export const SendEmailFAP = (
   atkqty,
   parkcheck,
   parkqty,
-  etc
+  etc,
+  beveragecheck,
+  beveragenumber,
+  snackcheck,
+  snacksnumber,
+  sandalcheck,
+  sandalnumber,
+  meetdate,
+  meettime,
+  meetdateout,
+  meettimeout,
+  room,
+  company,
+  name,
+  surname
 ) => {
   return async (dispatch) => {
     try {
       let result = await httpClient.post(
-        `${server.SENDEMAILFAP_URL}/${prefix}/${ordno}/${status}/${submit}/${foodcheck}/${foodqty}/${atkcheck}/${atkqty}/${parkcheck}/${parkqty}/${etc}`
+        `${server.SENDEMAILFAP_URL}/${prefix}/${ordno}/${status}/${submit}/${foodcheck}
+        /${foodqty}/${atkcheck}/${atkqty}/${parkcheck}/${parkqty}/${etc}/${beveragecheck}
+        /${beveragenumber}/${snackcheck}/${snacksnumber}/${sandalcheck}/${sandalnumber}
+        /${meetdate}/${meettime}/${meetdateout}/${meettimeout}/${room}/${company}/${name}
+        /${surname}`
       );
 
       return result.data;
