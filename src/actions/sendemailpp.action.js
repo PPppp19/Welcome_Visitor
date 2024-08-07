@@ -46,12 +46,19 @@ export const SendEmailwithoutauthen = (
   submit,
   cono,
   divi,
-  location
+  location,
+  vMeetdate,
+  vMeettime,
+  vName,
+  vSurname,
+  vROOMNO,
+  vRemark
 ) => {
   return async (dispatch) => {
     try {
       let result = await httpClient.post(
-        `${server.SENDEMAILWITHOUTAUTHEN_URL}/${prefix}/${ordno}/${status}/${submit}/${cono}/${divi}/${location}`
+        `${server.SENDEMAILWITHOUTAUTHEN_URL}/${prefix}/${ordno}/${status}/${submit}/${cono}/${divi}/${location}
+        /${vMeetdate}/${vMeettime}/${vName}/${vSurname}/${vROOMNO}/${vRemark}`
       );
 
       return result.data;

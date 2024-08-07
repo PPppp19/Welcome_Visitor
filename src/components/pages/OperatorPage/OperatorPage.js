@@ -14,6 +14,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import EmailIconsend from "@mui/icons-material/MarkEmailRead";
 import EmailIcon from "@mui/icons-material/Email";
 import SearchIcon from "@mui/icons-material/Search";
+import CloseIcon from "@mui/icons-material/Close";
 
 // import { Modal } from "react-responsive-modal";
 
@@ -454,12 +455,12 @@ const FilePage = (props) => {
 
               const parts = rowData.EMP.split(" : ");
               const name = parts[0];
-              const email = parts[1];
+              //const email = parts[1];
 
               setvisitorheader({
                 ...visitorheader,
                 vEmployee: name,
-                vEmail: email,
+                vEmail: rowData.MAIL,
                 vImage: rowData.IMAGE,
                 vMeetdate: rowData.DATE,
                 vMeettime: rowData.TIME,
@@ -1083,6 +1084,18 @@ vCheckindate: rowData.STATUS,
                       color: "red",
                     }}
                   >
+                    <IconButton
+                      aria-label="close"
+                      onClick={handleClose}
+                      sx={{
+                        position: "absolute",
+                        right: 8,
+                        top: 8,
+                        color: (theme) => theme.palette.grey[500],
+                      }}
+                    >
+                      <CloseIcon />
+                    </IconButton>
                     <Typography variant="h6" component="h2" gutterBottom>
                       <Typography
                         id="modal-modal-title"
@@ -1439,11 +1452,12 @@ vCheckindate: rowData.STATUS,
                           <br></br>
                           <Grid spacing={2}>
                             <TextField
-                              fullWidth
+                              fullWidthฃ
+                              disabled
                               size="small"
                               variant="outlined"
                               id="vEmail"
-                              label="อีเมลล์"
+                              label="Tel."
                               SelectProps={{
                                 native: true,
                               }}
@@ -1475,7 +1489,8 @@ vCheckindate: rowData.STATUS,
                           id="vEmployeedialog"
                           options={employeeset.map((opt) => ({
                             label: opt.NAMELIST,
-                            value: opt.NAMELIST,
+                            value: opt.MAIL,
+                            // value: opt.NAMELIST,
                           }))}
                           renderInput={(params) => (
                             <TextField
@@ -1500,7 +1515,7 @@ vCheckindate: rowData.STATUS,
                                   // vEmployeedialog: myArray[0].trim(),
                                   vEmployeedialog: newTeam.label,
 
-                                  vEmail: myArray[1].trim(),
+                                  vEmail: newTeam.value,
                                 });
                               }
                             }
@@ -1838,8 +1853,9 @@ vCheckindate: rowData.STATUS,
 
                                   formData.append(
                                     "vEmail",
-                                    visitorheader.vEmail
+                                    visitordialog.vEmail
                                   );
+
                                   formData.append(
                                     "vEmployeedialog",
                                     visitordialog.vEmployeedialog
@@ -1939,7 +1955,35 @@ vCheckindate: rowData.STATUS,
                                   color: "#ef9a9a", // สีข้อความเมื่อปุ่มถูกปิดการใช้งาน
                                 },
                               }}
-                              onClick={() => setOpen(false)}
+                              onClick={() => {
+                                const isConfirmed = window.confirm(
+                                  "Are you sure you want to cancel?"
+                                );
+
+                                if (isConfirmed) {
+                                  let formData = new FormData();
+                                  formData.append("vStatuscheck", "CANCEL");
+                                  formData.append("vID", idoperator);
+                                  formData.append("vRemark", "vRemark");
+                                  formData.append("vCheckout", "vCheckout");
+
+                                  //todo
+
+                                  (async function() {
+                                    await dispatch(
+                                      CheckoutActions.checkOut(formData)
+                                    );
+                                    await dispatch(
+                                      operationdataActions.getOperationfilterdata(
+                                        fromdate,
+                                        todate
+                                      )
+                                    );
+                                    setOpen(false);
+                                  })();
+                                } else {
+                                }
+                              }}
                             >
                               CANCEL
                             </Button>

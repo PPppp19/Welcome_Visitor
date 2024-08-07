@@ -947,9 +947,22 @@ const FilePage = (props) => {
                     "Resend",
                     cono,
                     divi,
-                    location
+                    location,
+                    visitorheader.vMeetdate,
+                    visitorheader.vMeettime,
+                    visitorheader.vName,
+                    visitorheader.vSurname,
+                    visitorheader.vROOMNO,
+                    visitorheader.vRemark
                   )
                 );
+
+                // alert(visitorheader.vMeetdate);
+                // alert(visitorheader.vMeettime);
+                // alert(visitorheader.vName);
+                // alert(visitorheader.vSurname);
+                // alert(visitorheader.vROOMNO);
+                // alert(visitorheader.vRemark);
 
                 // alert(cono);
                 // alert(divi);
