@@ -851,12 +851,14 @@ vCheckindate: rowData.STATUS,
         rowData.NAME !== "Follower" && (
           <Button
             disabled={
-              rowData.STATUS == "15"
-                ? false
-                : rowData.STATUS == "20"
-                ? false
-                : rowData.STATUS == "80"
-                ? false
+              rowData.USER == "ADMIN"
+                ? rowData.STATUS == "15"
+                  ? false
+                  : rowData.STATUS == "20"
+                  ? false
+                  : rowData.STATUS == "80"
+                  ? false
+                  : true
                 : true
             }
             variant="contained"
@@ -931,7 +933,13 @@ vCheckindate: rowData.STATUS,
       render: (rowData) =>
         rowData.NAME !== "Follower" && (
           <Button
-            disabled={rowData.STATUS == "30" ? false : true}
+            disabled={
+              rowData.USER == "ADMIN"
+                ? rowData.STATUS == "30"
+                  ? false
+                  : true
+                : true
+            }
             variant="contained"
             startIcon={<CheckCircleIcon />}
             size="small"
