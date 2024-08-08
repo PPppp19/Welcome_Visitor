@@ -393,9 +393,6 @@ const FilePage = (props) => {
   let [imgSrc, setImgSrc] = useState("");
 
   useEffect(() => {
-    // dispatch(operationdataActions.getOperationdata());
-    // alert("xxx " + operationdataReducer.result);
-
     dispatch(operationdataActions.getOperationfilterdata(fromdate, todate));
   }, []);
 
@@ -492,6 +489,7 @@ vCheckindate: rowData.STATUS,
               await dispatch(getimageActions.getImage(rowData.ID));
 
               setIDOPERATOR(rowData.ID);
+
               setvisitordialog({
                 ...visitordialog,
                 vCard: rowData.CARD,
@@ -524,6 +522,12 @@ vCheckindate: rowData.STATUS,
               //   "base64"
               // ).toString();
               // setImgSrc(base64_to_imgsrc);
+
+              if (rowData.USER == "VISITOR") {
+                setUpdate1(false);
+                setCheckin(false);
+                setCreate(false);
+              }
             }}
           >
             INFO
@@ -987,6 +991,8 @@ vCheckindate: rowData.STATUS,
   const handleClose = () => setOpen(false);
 
   const [idoperator, setIDOPERATOR] = React.useState("24000000");
+
+  const [isadmin, setISADMIN] = React.useState("false");
 
   const initialvisitorheader = {
     vCono: "BangkokRanch",

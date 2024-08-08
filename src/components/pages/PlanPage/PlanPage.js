@@ -85,9 +85,14 @@ const MyCalendar = () => {
         end: new Date(event.END),
         room: event.ROOM, // assuming the room data is available in the response
         FOOD: event.FOOD,
+        BEVERAGE: event.BEVERAGE,
+        SNACK: event.SNACK,
+        SANDAL: event.SANDAL,
+
         ATK: event.ATK,
         PARK: event.PARK,
         ETC: event.ETC,
+        EMP: event.EMP,
       }));
       setEvents(formattedEvents);
     }
@@ -132,7 +137,7 @@ const MyCalendar = () => {
         localizer={localizer}
         events={events}
         selectable
-        onSelectSlot={handleSelectSlot}
+        // onSelectSlot={handleSelectSlot}
         onSelectEvent={handleSelectEvent}
         defaultView="month"
         style={{ height: "100%", width: "100%" }} // กำหนดความสูงและความกว้างของ Calendar ให้เต็มพื้นที่ที่เหลืออยู่
@@ -179,6 +184,15 @@ const MyCalendar = () => {
                 <strong>FOOD:</strong> {selectedEvent.FOOD}
               </Typography>
               <Typography>
+                <strong>BEVERAGE:</strong> {selectedEvent.BEVERAGE}
+              </Typography>
+              <Typography>
+                <strong>SNACK:</strong> {selectedEvent.SNACK}
+              </Typography>
+              <Typography>
+                <strong>SANDAL:</strong> {selectedEvent.SANDAL}
+              </Typography>
+              <Typography>
                 <strong>ATK:</strong> {selectedEvent.ATK}
               </Typography>
               <Typography>
@@ -186,6 +200,9 @@ const MyCalendar = () => {
               </Typography>
               <Typography>
                 <strong>ETC:</strong> {selectedEvent.ETC}
+              </Typography>
+              <Typography>
+                <strong>EMP:</strong> {selectedEvent.EMP}
               </Typography>
             </div>
           )}
