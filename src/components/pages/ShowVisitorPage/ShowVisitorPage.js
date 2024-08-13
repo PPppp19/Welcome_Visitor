@@ -596,9 +596,8 @@ const FilePage = (props) => {
                           </Box>
                         </Grid>
                         <Grid container item xs={12} spacing={1}>
-                          <h2> ชื่อ - สกุล</h2>
-                          <Grid item xs={1}></Grid>
-                          <Grid item xs={5}>
+                          <h2> Name (ชื่อ) </h2>
+                          <Grid item xs={12}>
                             <TextField
                               fullWidth
                               className={classes.textField}
@@ -615,7 +614,8 @@ const FilePage = (props) => {
                               }}
                             />
                           </Grid>
-                          <Grid item xs={5}>
+                          <Grid item xs={12}>
+                            <h2>Surname (นามสกุล)</h2>
                             <TextField
                               fullWidth
                               className={classes.textField}
@@ -632,8 +632,8 @@ const FilePage = (props) => {
                               }}
                             />
                           </Grid>
-                          <Grid item xs={1} />
                         </Grid>
+
                         <Grid
                           container
                           item
@@ -643,7 +643,7 @@ const FilePage = (props) => {
                         ></Grid>
                       </Grid>
                       <Grid container item xs={12}>
-                        <h2> ระบุห้องประชุม </h2>
+                        <h2>Meeting Room. (ระบุห้องประชุม) </h2>
                         <TextField
                           className={classes.textField}
                           fullWidth
@@ -668,7 +668,7 @@ const FilePage = (props) => {
                       </Grid>
                       <Grid container item xs={12} spacing={1}>
                         <Grid item xs={12} spacing={1}>
-                          <h2>ผู้มาติดต่อ</h2>
+                          <h2>Employee (ผู้มาติดต่อ)</h2>
                         </Grid>
                         <Grid item xs={12} spacing={1}>
                           <TextField
@@ -678,7 +678,7 @@ const FilePage = (props) => {
                             size="small"
                             variant="outlined"
                             id="vCono"
-                            label="บริษัท"
+                            label="Company (บริษัท)"
                             value={visitorheader.vCono}
                             disabled
                             onChange={(event) => {
@@ -722,7 +722,7 @@ const FilePage = (props) => {
                           size="small"
                           variant="outlined"
                           id="vCompany"
-                          label="บริษัทผู้ติดต่อ"
+                          label="Company Name.(บริษัทผู้ติดต่อ)"
                           value={visitorheader.vCompany}
                           disabled
                           onChange={(event) => {
@@ -740,7 +740,7 @@ const FilePage = (props) => {
                           size="small"
                           variant="outlined"
                           id="vLicense"
-                          label="ทะเบียนรถ"
+                          label="Vehicle licence (ทะเบียนรถ)"
                           value={visitorheader.vLicense}
                           disabled
                           onChange={(event) => {
@@ -759,7 +759,7 @@ const FilePage = (props) => {
                           type="date"
                           variant="outlined"
                           id="vMeetdate"
-                          label="วันนัดเข้าพบ"
+                          label="Meeting Date (วันนัดเข้าพบ)"
                           value={visitorheader.vMeetdate}
                           disabled
                           onChange={(event) => {
@@ -778,7 +778,7 @@ const FilePage = (props) => {
                           type="time"
                           variant="outlined"
                           id="vMeettime"
-                          label="เวลาเข้าพบ"
+                          label="Meeting Time (เวลาเข้าพบ)"
                           value={visitorheader.vMeettime}
                           disabled
                           onChange={(event) => {
@@ -797,7 +797,7 @@ const FilePage = (props) => {
                           size="small"
                           variant="outlined"
                           id="vTel"
-                          label="เบอร์โทร"
+                          label="Tel. (เบอร์โทร)"
                           value={visitorheader.vTel}
                           disabled
                           onChange={(event) => {
@@ -817,7 +817,7 @@ const FilePage = (props) => {
                           size="small"
                           variant="outlined"
                           id="vReason"
-                          label="เหตุผล"
+                          label="Reason (เหตุผล)"
                           value={visitorheader.vReason}
                           disabled
                           onChange={(event) => {
