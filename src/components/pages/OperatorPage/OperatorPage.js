@@ -1144,119 +1144,102 @@ vCheckindate: rowData.STATUS,
                         </Box>
                       </Grid>
 
-                      <Grid item xs={6}>
-                        <Box
-                          sx={{
-                            bgcolor: "transparent",
-                            color: "primary.contrastText",
-                            p: 2,
-                            textAlign: "center",
-                          }}
-                        >
-                          <Grid spacing={2}>
-                            <TextField
-                              fullWidth
-                              disabled={!checkin}
-                              type="date"
-                              size="small"
-                              variant="outlined"
-                              id="vCheckindate"
-                              label="CHECKIN DATE"
-                              SelectProps={{
-                                native: true,
-                              }}
-                              value={visitorheader.vCheckindate}
-                              // values={(values.vCompany = visitorheader.vCompany)}
-                              onChange={(event) => {
-                                setvisitorheader({
-                                  ...visitorheader,
-                                  vCheckindate: event.target.value,
-                                });
-                              }}
-                            ></TextField>
-                          </Grid>{" "}
-                          <br></br>
-                          <Grid spacing={1}>
-                            <TextField
-                              fullWidth
-                              disabled={!update1}
-                              size="small"
-                              type="date"
-                              variant="outlined"
-                              id="vCheckoutdate"
-                              label="CHECKOUT DATE"
-                              SelectProps={{
-                                native: true,
-                              }}
-                              value={visitorheader.vCheckoutdate}
-                              // values={(values.vCompany = visitorheader.vCompany)}
-                              onChange={(event) => {
-                                setvisitorheader({
-                                  ...visitorheader,
-                                  vCheckoutdate: event.target.value,
-                                });
-                              }}
-                            ></TextField>
-                          </Grid>{" "}
-                          <br></br>
-                        </Box>
-                      </Grid>
-                      <Grid item xs={6}>
-                        <Box
-                          sx={{
-                            bgcolor: "transparent",
-                            color: "secondary.contrastText",
-                            p: 2,
-                            textAlign: "center",
-                          }}
-                        >
-                          <Grid spacing={1}>
-                            <TextField
-                              fullWidth
-                              disabled={!checkin}
-                              type="time"
-                              size="small"
-                              variant="outlined"
-                              id="vCheckintime"
-                              label="CHECKIN TIME"
-                              SelectProps={{
-                                native: true,
-                              }}
-                              value={visitorheader.vCheckintime}
-                              // values={(values.vCompany = visitorheader.vCompany)}
-                              onChange={(event) => {
-                                setvisitorheader({
-                                  ...visitorheader,
-                                  vCheckintime: event.target.value,
-                                });
-                              }}
-                            ></TextField>
-                          </Grid>
-                          <br></br>
+                      <Grid container spacing={2}>
+                        {/* Check-in Section */}
+                        <Grid item xs={12}>
+                          <Typography variant="h6" gutterBottom>
+                            CHECK-IN
+                          </Typography>
+                          <Grid container spacing={2}>
+                            {/* Check-in Date */}
+                            <Grid item xs={6}>
+                              <TextField
+                                fullWidth
+                                disabled={!checkin}
+                                type="date"
+                                size="small"
+                                variant="outlined"
+                                id="vCheckindate"
+                                label="CHECK-IN DATE (วันที่เช็คอิน)"
+                                value={visitorheader.vCheckindate}
+                                onChange={(event) => {
+                                  setvisitorheader({
+                                    ...visitorheader,
+                                    vCheckindate: event.target.value,
+                                  });
+                                }}
+                              />
+                            </Grid>
 
-                          <Grid spacing={1}>
-                            <TextField
-                              fullWidth
-                              disabled={!update1}
-                              size="small"
-                              type="time"
-                              variant="outlined"
-                              id="vCheckouttime"
-                              label="CHECKOUT TIME"
-                              SelectProps={{
-                                native: true,
-                              }}
-                              value={visitorheader.vCheckouttime}
-                              // values={(values.vCompany = visitorheader.vCompany)}
-                              onChange={(event) => {
-                                setvisitorheader({
-                                  ...visitorheader,
-                                  vCheckouttime: event.target.value,
-                                });
-                              }}
-                            ></TextField>
+                            {/* Check-in Time */}
+                            <Grid item xs={6}>
+                              <TextField
+                                fullWidth
+                                disabled={!checkin}
+                                type="time"
+                                size="small"
+                                variant="outlined"
+                                id="vCheckintime"
+                                label="CHECK-IN TIME (เวลาที่เช็คอิน)"
+                                value={visitorheader.vCheckintime}
+                                onChange={(event) => {
+                                  setvisitorheader({
+                                    ...visitorheader,
+                                    vCheckintime: event.target.value,
+                                  });
+                                }}
+                              />
+                            </Grid>
                           </Grid>
-                        </Box>
+                        </Grid>
+
+                        {/* Check-out Section */}
+                        <Grid item xs={12} sx={{ mt: 2 }}>
+                          <Typography variant="h6" gutterBottom>
+                            CHECK-OUT
+                          </Typography>
+                          <Grid container spacing={2}>
+                            {/* Check-out Date */}
+                            <Grid item xs={6} spacing={1}>
+                              <TextField
+                                fullWidth
+                                disabled={!update1}
+                                type="date"
+                                size="small"
+                                variant="outlined"
+                                id="vCheckoutdate"
+                                label="CHECK-OUT DATE (วันที่เช็คเอ้าท์)"
+                                value={visitorheader.vCheckoutdate}
+                                onChange={(event) => {
+                                  setvisitorheader({
+                                    ...visitorheader,
+                                    vCheckoutdate: event.target.value,
+                                  });
+                                }}
+                              />
+                            </Grid>
+
+                            {/* Check-out Time */}
+                            <Grid item xs={6} spacing={1}>
+                              <TextField
+                                fullWidth
+                                disabled={!update1}
+                                type="time"
+                                size="small"
+                                variant="outlined"
+                                id="vCheckouttime"
+                                label="CHECK-OUT TIME (เวลาที่เช็คเอ้าท์)"
+                                value={visitorheader.vCheckouttime}
+                                onChange={(event) => {
+                                  setvisitorheader({
+                                    ...visitorheader,
+                                    vCheckouttime: event.target.value,
+                                  });
+                                }}
+                              />
+                            </Grid>
+                          </Grid>
+                        </Grid>
                       </Grid>
 
                       {/* <Grid item xs={12}>
