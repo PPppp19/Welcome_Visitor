@@ -1066,6 +1066,21 @@ vCheckindate: rowData.STATUS,
         </Typography>
       ),
     },
+    // {
+    //   title: "Action",
+    //   field: "action",
+    //   headerStyle: { textAlign: "center" },
+    //   cellStyle: { textAlign: "center" },
+    //   render: (item) => (
+    //     <IconButton
+    //       onClick={() => handleDelete(item)}
+    //       color="secondary"
+    //       aria-label="delete"
+    //     >
+    //       <DeleteIcon />
+    //     </IconButton>
+    //   ),
+    // },
   ];
 
   const showOperatorForm = ({
@@ -1289,7 +1304,7 @@ vCheckindate: rowData.STATUS,
                               size="small"
                               variant="outlined"
                               id="vMeetdate"
-                              label="MEETDATE"
+                              label="Meeting Date (วันนัดเข้าพบ) "
                               SelectProps={{
                                 native: true,
                               }}
@@ -1312,7 +1327,7 @@ vCheckindate: rowData.STATUS,
                               size="small"
                               variant="outlined"
                               id="vMeetdateout"
-                              label="MEETDATEOUT"
+                              label="Meetingout Date (วันสิ้นสุดการเข้าพบ) "
                               SelectProps={{
                                 native: true,
                               }}
@@ -1354,7 +1369,7 @@ vCheckindate: rowData.STATUS,
                               size="small"
                               variant="outlined"
                               id="vEmployee"
-                              label="ผู้ติดต่อ"
+                              label="Employee (ผู้ติดต่อ)"
                               SelectProps={{
                                 native: true,
                               }}
@@ -1387,7 +1402,7 @@ vCheckindate: rowData.STATUS,
                               type="time"
                               variant="outlined"
                               id="vMeettime"
-                              label="TIME"
+                              label="TIME (เวลา)"
                               SelectProps={{
                                 native: true,
                               }}
@@ -1411,7 +1426,7 @@ vCheckindate: rowData.STATUS,
                               type="time"
                               variant="outlined"
                               id="vMeettimeout"
-                              label="TIMEOUT"
+                              label="TIMEOUT (เวลา)"
                               SelectProps={{
                                 native: true,
                               }}
@@ -1432,7 +1447,7 @@ vCheckindate: rowData.STATUS,
                               size="small"
                               variant="outlined"
                               id="vRoom"
-                              label="ROOM"
+                              label="ROOMNo. (ห้องประชุม)"
                               SelectProps={{
                                 native: true,
                               }}
@@ -1454,7 +1469,7 @@ vCheckindate: rowData.STATUS,
                               size="small"
                               variant="outlined"
                               id="vEmail"
-                              label="Tel."
+                              label="Tel. (เบอร์ติดต่อ)"
                               SelectProps={{
                                 native: true,
                               }}
@@ -1756,8 +1771,11 @@ vCheckindate: rowData.STATUS,
                                   formData.append("vRoom", visitordialog.vRoom);
                                   formData.append(
                                     "vEmail",
-                                    visitorheader.vEmail
+                                    visitordialog.vEmail
                                   );
+
+                                  // alert(visitordialog.vEmail);
+
                                   formData.append(
                                     "vCheckin",
                                     visitorheader.vCheckindate

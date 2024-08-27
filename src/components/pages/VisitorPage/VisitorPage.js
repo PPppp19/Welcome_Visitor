@@ -1794,7 +1794,7 @@ const FilePage = (props) => {
                           label="Snacks (ขนมทานเล่น)"
                         />
                       </Grid>
-                      {isSnacksChecked && (
+                      {false && (
                         <Grid
                           item
                           xs={12}
@@ -2366,7 +2366,7 @@ const FilePage = (props) => {
                 if (isSnacksChecked == false) {
                   formData.append("vSnacksnumber", 0);
                 } else {
-                  formData.append("vSnacksnumber", Snacksnumber);
+                  formData.append("vSnacksnumber", isSnacksChecked);
                 }
                 if (isSandalsChecked == false) {
                   formData.append("vSandalsnumber", 0);

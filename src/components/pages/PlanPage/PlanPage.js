@@ -68,6 +68,7 @@ const MyCalendar = () => {
   const scheduleReducer = useSelector(({ scheduleReducer }) => scheduleReducer);
   const [events, setEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [selectedSlot, setSelectedSlot] = useState(null);
 
   const [image64, setImage64] = useState("-");
 
@@ -126,6 +127,7 @@ const MyCalendar = () => {
 
   const handleCloseModal = () => {
     setSelectedEvent(null);
+    setSelectedSlot(null);
   };
 
   return (
@@ -137,7 +139,7 @@ const MyCalendar = () => {
         localizer={localizer}
         events={events}
         selectable
-        // onSelectSlot={handleSelectSlot}
+        onSelectSlot={handleSelectSlot}
         onSelectEvent={handleSelectEvent}
         defaultView="month"
         style={{ height: "100%", width: "100%" }} // กำหนดความสูงและความกว้างของ Calendar ให้เต็มพื้นที่ที่เหลืออยู่

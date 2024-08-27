@@ -57,8 +57,20 @@ export const SendEmailwithoutauthen = (
   return async (dispatch) => {
     try {
       let result = await httpClient.post(
-        `${server.SENDEMAILWITHOUTAUTHEN_URL}/${prefix}/${ordno}/${status}/${submit}/${cono}/${divi}/${location}
-        /${vMeetdate}/${vMeettime}/${vName}/${vSurname}/${vROOMNO}/${vRemark}`
+        `${server.SENDEMAILWITHOUTAUTHEN_URL}/` +
+          `${prefix}/` +
+          `${ordno}/` +
+          `${status}/` +
+          `${submit}/` +
+          `${cono}/` +
+          `${divi}/` +
+          `${location}/` +
+          `${vMeetdate}/` +
+          `${vMeettime}/` +
+          `${vName}/` +
+          `${vSurname}/` +
+          `${vROOMNO}/` +
+          `${vRemark}`
       );
 
       return result.data;
@@ -104,6 +116,18 @@ export const SendEmailFAP = (
         /${meetdate}/${meettime}/${meetdateout}/${meettimeout}/${room}/${company}/${name}
         /${surname}`
       );
+
+      return result.data;
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+};
+
+export const SendEmailxx = (prefix) => {
+  return async (dispatch) => {
+    try {
+      let result = await httpClient.post(`${server.SENDEMAILXX_URL}/${prefix}`);
 
       return result.data;
     } catch (err) {

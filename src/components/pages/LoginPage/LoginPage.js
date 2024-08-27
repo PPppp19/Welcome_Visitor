@@ -18,6 +18,8 @@ import * as companyActions from "./../../../actions/company.action";
 import * as locationActions from "./../../../actions/location.action";
 
 import LinkPDF from "./../../../../src/doc/mar_document.pdf";
+import LinkVisitorPDF from "./../../../../src/doc/WELCOME_VISITOR_FORVISITOR.pdf";
+import LinkUserPDF from "./../../../../src/doc/WELCOME_VISITOR_FORUSER.pdf";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -134,6 +136,8 @@ const LoginPage = (props) => {
   //   { ID: 12, CCCONO: 10, LOCATION: "ตึกข้าง" },
   //   { ID: 33, CCCONO: 600, LOCATION: "บริษัท วินไทย ฟู้ด จำกัด " },
   // ];
+
+  const locationsA = [{ ID: 11, CCCONO: 10, LOCATION: "ตึกหน้า AA " }];
 
   const showForm = ({
     values,
@@ -268,8 +272,22 @@ const LoginPage = (props) => {
         </Grid>
 
         <Grid container justify="flex-end">
-          <a href={LinkPDF} target="_blank" style={{ textDecoration: "none" }}>
-            คู่มือการใช้งาน
+          <a
+            href={LinkVisitorPDF}
+            target="_blank"
+            style={{ textDecoration: "none" }}
+          >
+            คู่มือการใช้งาน (สำหรับVisitor)
+          </a>
+        </Grid>
+
+        <Grid container justify="flex-end">
+          <a
+            href={LinkUserPDF}
+            target="_blank"
+            style={{ textDecoration: "none" }}
+          >
+            คู่มือการใช้งาน (สำหรับUser)
           </a>
         </Grid>
       </form>

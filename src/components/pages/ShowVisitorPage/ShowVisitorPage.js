@@ -481,9 +481,9 @@ const FilePage = (props) => {
         vImg: visitordetail[0].IMAGE,
         vROOMNO:
           visitordetail[0].H_ROOMNO == "-"
-            ? ""
+            ? "-"
             : visitordetail[0].H_ROOMNO == "undefined"
-            ? ""
+            ? "-"
             : visitordetail[0].H_ROOMNO,
         vRemark: visitordetail[0].H_REMARK1,
       });
@@ -650,7 +650,7 @@ const FilePage = (props) => {
                           size="small"
                           variant="outlined"
                           id="vROOMNO"
-                          label="Ex. ห้องประชุม hongkong ..."
+                          label="กรุณาระบุห้องประชุม..."
                           SelectProps={{
                             native: true,
                           }}
@@ -921,7 +921,7 @@ const FilePage = (props) => {
           vMeetdate: "",
           vMeettime: "",
           vMail: "",
-          vROOMNO: "",
+          vROOMNO: "-",
         }}
         onSubmit={(values, { setSubmitting }) => {
           //alert("xxxxxx");
@@ -934,11 +934,14 @@ const FilePage = (props) => {
               case "REJECT":
                 formData.append("vID", visitorheader.vID);
                 formData.append("vStatuscheck", "REJECT");
+                formData.append("vROOM", values.vROOMNO);
+                formData.append("vLocation", locationhead);
                 formData.append("vRemark", visitorheader.vRemark);
 
                 // alert(JSON.stringify(formData));
                 await dispatch(CheckoutActions.checkOut1(formData));
 
+                console.log("SendEmailwithoutauthen");
                 await dispatch(
                   sendmailActionspp.SendEmailwithoutauthen(
                     "SHOW",
@@ -1051,7 +1054,12 @@ const FilePage = (props) => {
                   vSurname: visitordetail[0].H_SURNAME,
                   vReason: visitordetail[0].H_REASON,
                   vTel: visitordetail[0].H_TEL,
-                  vROOMNO: visitordetail[0].H_ROOMNO,
+                  vROOMNO:
+                    visitordetail[0].H_ROOMNO == "-"
+                      ? "-"
+                      : visitordetail[0].H_ROOMNO == "undefined"
+                      ? "-"
+                      : visitordetail[0].H_ROOMNO,
 
                   // vLicense:visitordetail.H_COMPANYNAME2,
                   // vLicense:visitordetail.H_COMPANYNAME2,

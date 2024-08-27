@@ -411,6 +411,8 @@ export const server = {
 
   SENDEMAILWITHOUTAUTHEN_URL: `visitor_api/data/sendemailppwithoutauthen`,
 
+  SENDEMAILXX_URL: `visitor_api/data/sendemailxx`,
+
   SENDEMAILFAP_URL: `visitor_api/data/sendemailppFAP`,
 
   // UPDATEFOLLOWER

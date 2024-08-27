@@ -5,6 +5,7 @@ import MaterialTable, { MTableToolbar } from "material-table";
 import * as monitoringreceiptActions from "../../../actions/monitoringreceipt.action";
 import IconButton from "@material-ui/core/IconButton";
 import { Save, Delete } from "@material-ui/icons";
+import axios from "axios";
 
 import ScreenshotIcon from "@mui/icons-material/Screenshot";
 
@@ -116,6 +117,36 @@ export default (props) => {
 
   const [loading, setLoading] = useState(false);
 
+  // Zimbra Zone
+  // --------------------------------------------------
+
+  // const [events, setEvents] = useState([]);
+  // const [loadingz, setLoadingz] = useState(true);
+
+  // useEffect(() => {
+  //   const fetchCalendarData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         // "https://your-zimbra-server/service/home/user@domain.com/calendar.json",
+  //         "https://192.200.9.174/service/home/phongsathon@br-bangkokranch.com/calendar.json",
+  //         {
+  //           auth: {
+  //             username: "phongsathon@br-bangkokranch.com",
+  //             password: "Aoy59264866",
+  //           },
+  //         }
+  //       );
+  //       setEvents(response.data);
+  //       setLoadingz(false);
+  //     } catch (error) {
+  //       console.error("Error fetching calendar data:", error);
+  //       setLoadingz(false);
+  //     }
+  //   };
+  //   fetchCalendarData();
+  // }, []);
+
+  // --------------------------------------------------
   const initialsuccessheader = {
     vID: "24000000",
     vTYPE: "SUBMIT",
@@ -155,6 +186,33 @@ export default (props) => {
 
   return (
     <TransitionGroup>
+      <br />
+      <br />
+      <br />
+      <br />
+
+      {/* <div>
+        <h1>Zimbra Calendar Events</h1>
+        <ul>
+          {events.map((event, index) => (
+            <li key={index}>
+              <strong>{event.name}</strong> - {event.startDate} to{" "}
+              {event.endDate}
+            </li>
+          ))}
+        </ul>
+      </div> */}
+      {/* <div>
+        <h1>Zimbra Calendar Events</h1>
+        <ul>
+          {events.map((event, index) => (
+            <li key={index}>
+              <strong>{event.name}</strong> - {event.startDate} to{" "}
+              {event.endDate}
+            </li>
+          ))}
+        </ul>
+      </div> */}
       <div>
         <div
           ref={screenshotRef}
