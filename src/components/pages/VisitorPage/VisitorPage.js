@@ -1091,7 +1091,7 @@ const FilePage = (props) => {
                           xs={6}
                           style={{ display: "flex", justifyContent: "center" }}
                         >
-                          <Button
+                          {/* <Button
                             style={{
                               width: "150px",
                               height: "150px",
@@ -1112,7 +1112,7 @@ const FilePage = (props) => {
                               style={{ fontSize: "80px", color: grey[500] }}
                             />
                             CAMERA
-                          </Button>
+                          </Button> */}
                         </Grid>
                         <Grid
                           item
